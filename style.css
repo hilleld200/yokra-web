@@ -1,0 +1,22 @@
+.card{
+    border: 5px solid;
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+    height: 100%;
+    text-align: center;
+}
+.card img{
+    width: -webkit-fill-available;  
+    max-height: 500px;
+}
+.card a{
+    text-decoration: none;
+    text-size-adjust: 100%;
+    color: black;
+    font-weight: bold;
+    font-size: 40px;
+}
+.card a:hover{
+    text-decoration: underline;
+}
