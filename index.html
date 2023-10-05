@@ -7,10 +7,13 @@
     <title>yokra info</title>
   </head>
   <body>
+    <img class="add" id="add_img" src="	https://cdn-icons-png.flaticon.com/512/6711/6711415.png" alt="add button">
+    <input class="password" type="text" placeholder="Enter your password">
+    <button class="password" id="login-button">login</button>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-        import { getFirestore , collection, addDoc, getDocs,} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+        import { getFirestore , collection, addDoc, getDocs , getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
       
         // Your web app's Firebase configuration
@@ -33,38 +36,96 @@
 
         //initialize the variables
         const products_list = [];
-        
-        //call the functions
         getData();
+        
+        //functions
+        if(localStorage.getItem('admin_access')){
+          document.getElementById("add_img").style.visibility= "visible";
+        }else{
+          document.getElementById("add_img").style.visibility= "hidden";
+        }
+        document.getElementById("login-button").addEventListener("click", function(){
+          const input_password = document.querySelector(".password").value;
+          const real_password = getDocs(collection(db, "users"))
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              if(doc.data().password == input_password){
+                localStorage.setItem('admin_access', "true");
+                document.getElementById("add_img").style.visibility= "visible";
+                alert("login successful");
+              }else{
+                alert("wrong password");
+                document.getElementById("add_img").style.visibility= "hidden";
+                localStorage.setItem('admin_access', "false");
+              }
+            })
+          })
+          })
+        document.getElementById("add_img").addEventListener("click", function(){
+          if(localStorage.getItem('admin_access') == "true"){
+              localStorage.setItem('selected_product', "null");  
+              window.location.href = "products-edit.html";
+            }else{
+              alert("you dont have the permission to add products");
+            }
+        })
         function getData(){
+          let i = 0;
           getDocs(collection(db, "products"))
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
               console.log("get data called");
               const corerct_product = {
+                id: i,
                 type: doc.data().type,
                 name: doc.data().name,
                 price: doc.data().price,
                 uri: doc.data().uri,
-                specialNotes: doc.data().specialNotes};
+                specialNotes: doc.data().specialNotes,
+                secondSpecialNotes: doc.data().secondSpecialNotes};
+                i++;
               products_list.push(corerct_product);
               show_data(corerct_product);
             })
           })
         }
-
-        
         function show_data(data){
+          //create the elements
           const div_element = document.createElement("div");
-          const image_element = document.createElement("img");
           const name_element = document.createElement("a");
+          const line_break = document.createElement("hr");
+          const type_and_price_element = document.createElement("p");
+          const secondSpecialNotes_element = document.createElement("p");
+          const image_element = document.createElement("img");
+          //name element
           name_element.innerHTML = data.name;
           name_element.href = "products-edit.html";
+          name_element.addEventListener("click", function(event){
+            if(localStorage.getItem('admin_access') == "true"){
+              localStorage.setItem('selected_product', data.name);  
+            }else{
+              alert("you dont have the permission to edit this product");
+              event.preventDefault();
+            }
+          })
+         //type & price element
+          type_and_price_element.innerHTML = data.type + " | " + data.price+"₪";
+          //secondSpecialNotes element
+          secondSpecialNotes_element.innerHTML = data.secondSpecialNotes;
+          secondSpecialNotes_element.style.textAlign = "right";
+          //image element
           getDownloadURL(ref(storage, data.uri)).then((url) => {
+
             image_element.src = url;
           })
+          //div element
           div_element.className = "card";
+          div_element.id = "product " + data.id;
+          //append the elements
           div_element.appendChild(name_element);
+          div_element.appendChild(type_and_price_element);
+          div_element.appendChild(secondSpecialNotes_element);
+          div_element.appendChild(line_break);
           div_element.appendChild(image_element);
           document.body.appendChild(div_element);
         }
