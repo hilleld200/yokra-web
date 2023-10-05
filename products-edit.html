@@ -12,9 +12,19 @@
         <button class="save" id="save-button">save</button>
         <button class="delete" id="delete-button">delete</button>
     </div>
-    <input type="text " id="name-input" value="${start_data.name}" placeholder="enter product name">
-    <input type="text " id="price-input" value="${start_data.price}" placeholder="enter product price">
-    <input type="text " id="notes-input" value="${start_data.specialNotes}" placeholder="enter special notes">
+    <label for="name-input"> 
+        <input type="text " id="name-input" value="${start_data.name}" placeholder="enter product name">
+        :שם המוצר
+    </label>
+    <label for="price-input">
+        <input type="text " id="price-input" value="${start_data.price}" placeholder="enter product price">
+    </label>
+    <label for="notes-input">
+        <input type="text " id="notes-input" value="${start_data.specialNotes}" placeholder="enter special notes">
+    </label>
+    <label for="secondNotes-input">
+        
+    </label>
     <input type="text " id="secondNotes-input" value="${start_data.secondSpecialNotes}" placeholder="enter second special notes">
     <input type="text " id="type-input" value="${start_data.type}" placeholder="enter product type">
     <input type="file" id ="image-input" accept="image/*">

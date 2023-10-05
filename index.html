@@ -7,11 +7,18 @@
     <title>yokra info</title>
   </head>
   <body>
+    <dialog>
+      <h1>תבחר את סוג החיפוש</h1>
+      <footer>
+        <button id="search_by_name">חיפוש לפי שם</button>
+        <button id="search_by_type">חיפוש לפי סוג</button>
+      </footer>
+    </dialog>
     <form id="form" role="search">
       <input type="search" id="query" name="q"
        placeholder="Search..."
        aria-label="Search through site content">
-      <button disabled class="search_button">
+      <button type="button" id="search_button">
         <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
       </button>
     </form>
@@ -21,6 +28,9 @@
     </div>
     <img class="add" id="add_img" src="	https://cdn-icons-png.flaticon.com/512/6711/6711415.png" alt="add button">
     <script type="module">
+
+
+      // code start *****************************************************************************************************************************
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
         import { getFirestore , collection, addDoc, getDocs , getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
@@ -45,16 +55,30 @@
         const storage = getStorage(app);
 
         //initialize the variables
+        let filter_by = "name";
         const products_list = [];
         const input_search = document.querySelector("#query");
         getData();
         
-        //functions
-        if(localStorage.getItem('admin_access' == "true")){
-          document.getElementById("add_img").style.visibility= "visible";
-        }else{
-          document.getElementById("add_img").style.visibility= "hidden";
-        }
+        //functions **********************************************************************************************************************************
+
+        // set the dialog functions
+        const dialog = document.querySelector("dialog");
+        document.getElementById("search_button").addEventListener("click", function(){
+          dialog.showModal();
+        })
+        document.getElementById("search_by_name").addEventListener("click", function(){
+          filter_by = "name";
+          dialog.close();
+        })
+        document.getElementById("search_by_type").addEventListener("click", function(){
+          filter_by = "type";
+          dialog.close();
+        })
+        //set the add button visibility
+        if(localStorage.getItem('admin_access')){
+          document.getElementById("add_img").style.visibility= "visible";}else{document.getElementById("add_img").style.visibility= "hidden";}
+        //login button 
         document.getElementById("login-button").addEventListener("click", function(){
           const input_password = document.querySelector(".password").value;
           const real_password = getDocs(collection(db, "users"))
@@ -72,21 +96,28 @@
             })
           })
           })
-        
+        //search bar
         input_search.addEventListener('input', function(event) {
-          const typedLetter = event.target.value.slice(-1);
+          const typedLetter = document.getElementById("query").value;
           const filteredProducts = products_list.filter((product) => {
-            if(product.name.includes(typedLetter)){
+            if(filter_by == "name"){
+              if(product.name.includes(typedLetter)){
               document.getElementById("product " + product.id).style.display = "block";
-              console.log(product.id + "found");
             }else{
               document.getElementById("product " + product.id).style.display = "none";
-              console.log(product.id + "not found");
             }
+            }
+            if(filter_by == "type"){
+              if(product.type.includes(typedLetter)){
+              document.getElementById("product " + product.id).style.display = "block";
+            }else{
+              document.getElementById("product " + product.id).style.display = "none";
+            }
+            }
+            
           })
         });
-
-
+        //add button function
         document.getElementById("add_img").addEventListener("click", function(){
           if(localStorage.getItem('admin_access') == "true"){
               localStorage.setItem('selected_product', "null");  
@@ -95,12 +126,12 @@
               alert("you dont have the permission to add products");
             }
         })
+        //get the data from the database
         function getData(){
           let i = 0;
           getDocs(collection(db, "products"))
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              console.log("get data called");
               const corerct_product = {
                 id: i,
                 type: doc.data().type,
@@ -115,6 +146,7 @@
             })
           })
         }
+        // show the data from the getData function
         function show_data(data){
           //create the elements
           const div_element = document.createElement("div");
