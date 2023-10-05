@@ -7,9 +7,19 @@
     <title>yokra info</title>
   </head>
   <body>
+    <form id="form" role="search">
+      <input type="search" id="query" name="q"
+       placeholder="Search..."
+       aria-label="Search through site content">
+      <button disabled class="search_button">
+        <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"></path></svg>
+      </button>
+    </form>
+    <div class="login" >
+      <input class="password"  type="password" placeholder="Enter your password">
+      <button  id="login-button">login</button>
+    </div>
     <img class="add" id="add_img" src="	https://cdn-icons-png.flaticon.com/512/6711/6711415.png" alt="add button">
-    <input class="password" type="text" placeholder="Enter your password">
-    <button class="password" id="login-button">login</button>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
@@ -36,10 +46,11 @@
 
         //initialize the variables
         const products_list = [];
+        const input_search = document.querySelector("#query");
         getData();
         
         //functions
-        if(localStorage.getItem('admin_access')){
+        if(localStorage.getItem('admin_access' == "true")){
           document.getElementById("add_img").style.visibility= "visible";
         }else{
           document.getElementById("add_img").style.visibility= "hidden";
@@ -61,6 +72,21 @@
             })
           })
           })
+        
+        input_search.addEventListener('input', function(event) {
+          const typedLetter = event.target.value.slice(-1);
+          const filteredProducts = products_list.filter((product) => {
+            if(product.name.includes(typedLetter)){
+              document.getElementById("product " + product.id).style.display = "block";
+              console.log(product.id + "found");
+            }else{
+              document.getElementById("product " + product.id).style.display = "none";
+              console.log(product.id + "not found");
+            }
+          })
+        });
+
+
         document.getElementById("add_img").addEventListener("click", function(){
           if(localStorage.getItem('admin_access') == "true"){
               localStorage.setItem('selected_product', "null");  
