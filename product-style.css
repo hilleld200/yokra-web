@@ -1,10 +1,11 @@
-body{
+body {
     background-color: #6d75d0;
     margin: 10px;
     padding: 10px;
     position: relative;
     height: 90vh;
-    width: 90vw;}
+    width: 90vw;
+}
 
 input {
     all: unset;
@@ -13,14 +14,15 @@ input {
     padding: 6px 10px;
     text-align: center;
     right: 150px;
-    position: absolute;}
+}
 
 ::placeholder {
     color: #fff;
-    opacity: 0.7; }
+    opacity: 0.7;
+}
 
-label{
-    width: 30%;
+label {
+    min-width: 30%;
     height: 30px;
     background-color: #9097e3;
     border-radius: 3px;
@@ -28,57 +30,63 @@ label{
     flex-direction: row;
     align-items: center;
     right: 50px;
-    position: absolute;}
-    
+    position: absolute;
+}
 
-.save{
-right: 0px;
-width: 50px;
-height: 50px;
-position: absolute;
-bottom: 10px;
-cursor: pointer;}
 
-.delete{
-left: 0px;
-width: 50px;
-height: 50px;
-position: absolute;
-bottom: 10px;
-cursor: pointer;}
+.save {
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+.delete {
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 10px;
+    cursor: pointer;
+}
 
 #image-preview {
-   max-width: 68%;
-   max-height: 80%;
-   position: absolute;
-    left: 50px;}
+    max-width: 68%;
+    max-height: 80%;
+    position: relative;
+    right: 15%;
+    z-index: -1;
+    top: 45%;
+}
 
 #name-label {
 
-top: 50px;
+    top: 50px;
 }
 
 #price-label {
 
-top: 90px;
+    top: 90px;
 }
 
 #notes-label {
 
-top: 130px;
+    top: 130px;
 }
 
 #secondNotes-label {
 
-top: 170px;
+    top: 170px;
 }
 
 #type-label {
 
-top: 210px;
+    top: 210px;
 }
 
 #image-label {
-    
+
     top: 250px;
-    }
+}

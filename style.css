@@ -1,72 +1,82 @@
-body{
-    background-color: #6d75d0;}
+body {
+    background-color: #6d75d0;
+}
 
-.card{
-border: 5px solid;
-margin: auto;
-width: 60%;
-padding: 10px;
-height: 100%;
-text-align: center;
-margin-top: 10px;
-background-color: rgba(255, 255, 255, 0.458);}
+.card {
+    border: 5px solid;
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    height: 100%;
+    text-align: center;
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.458);
+}
 
-.card img{
-width: -webkit-fill-available;  
-max-height: 300px;}
+.card img {
+    width: -webkit-fill-available;
+    max-height: 300px;
+}
 
-.card a{
-text-decoration: none;
-text-size-adjust: 100%;
-color: black;
-font-weight: bold;
-font-size: 40px;}
+.card a {
+    text-decoration: none;
+    text-size-adjust: 100%;
+    color: black;
+    font-weight: bold;
+    font-size: 40px;
+}
 
-.card a:hover{
-text-decoration: underline;}
+.card a:hover {
+    text-decoration: underline;
+}
 
-.add{
-width: 100px;
-height: 100px;
-right: 20px;
-position: absolute;
-top: 20px;}
+.add {
+    width: 13%;
+    right: 20px;
+    position: absolute;
+    top: 20px;
+}
 
 form {
-background-color: #9097e3;
-width: 300px;
-height: 44px;
-border-radius: 5px;
-display: flex;
-flex-direction: row;
-align-items: center;}
+    background-color: #9097e3;
+    width: 300px;
+    height: 44px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
 input {
-all: unset;
-font: 16px system-ui;
-color: #fff;
-height: 100%;
-width: 100%;
-padding: 6px 10px;}
+    all: unset;
+    font: 16px system-ui;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    padding: 6px 10px;
+}
 
 ::placeholder {
-color: #fff;
-opacity: 0.7; }
+    color: #fff;
+    opacity: 0.7;
+}
 
 #search_button {
-all: unset;
-cursor: pointer;
-width: 44px;
-height: 44px;}
+    all: unset;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+}
 
 svg {
-color: #fff;
-fill: currentColor;
-width: 24px;
-height: 24px;
-padding: 10px;}
+    color: #fff;
+    fill: currentColor;
+    width: 24px;
+    height: 24px;
+    padding: 10px;
+}
 
-.login{
+.login {
     color: #fff;
     border-radius: 5px;
     margin-top: 10px;
@@ -76,9 +86,10 @@ padding: 10px;}
     border-radius: 5px;
     display: flex;
     flex-direction: row;
-    align-items: center;}
+    align-items: center;
+}
 
-.login button{
+.login button {
     font-family: Montserrat-Bold;
     font-size: 15px;
     line-height: 1;
@@ -99,4 +110,5 @@ padding: 10px;}
     -webkit-transition: all .4s;
     -o-transition: all .4s;
     -moz-transition: all .4s;
-    transition: all .4s;}
+    transition: all .4s;
+}
