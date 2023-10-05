@@ -4,34 +4,81 @@ body{
     padding: 10px;
     position: relative;
     height: 90vh;
-    width: 90vw;
-}
-.save{
-    right: 0px;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    bottom: 10px;
-    cursor: pointer;
-}
-.delete{
-    left: 0px;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    bottom: 10px;
-    cursor: pointer;
-}
-.progress-bar {
-    position: absolute;
+    width: 90vw;}
+
+input {
+    all: unset;
+    font: 16px system-ui;
+    color: #ffffffc6;
+    padding: 6px 10px;
+    text-align: center;
+    right: 150px;
+    position: absolute;}
+
+::placeholder {
+    color: #fff;
+    opacity: 0.7; }
+
+label{
+    width: 30%;
+    height: 30px;
+    background-color: #9097e3;
+    border-radius: 3px;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    bottom: 10px;
-    left: 20px;
-    right: 20px;
+    right: 50px;
+    position: absolute;}
+    
+
+.save{
+right: 0px;
+width: 50px;
+height: 50px;
+position: absolute;
+bottom: 10px;
+cursor: pointer;}
+
+.delete{
+left: 0px;
+width: 50px;
+height: 50px;
+position: absolute;
+bottom: 10px;
+cursor: pointer;}
+
+#image-preview {
+   max-width: 68%;
+   max-height: 80%;
+   position: absolute;
+    left: 50px;}
+
+#name-label {
+
+top: 50px;
 }
-.bar {
-    height: 5px;
-    flex-grow: 1;
-    background-color: #006adb;
+
+#price-label {
+
+top: 90px;
 }
+
+#notes-label {
+
+top: 130px;
+}
+
+#secondNotes-label {
+
+top: 170px;
+}
+
+#type-label {
+
+top: 210px;
+}
+
+#image-label {
+    
+    top: 250px;
+    }
