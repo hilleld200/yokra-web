@@ -34,6 +34,7 @@ body {
 
 .card a:hover {
     text-decoration: underline;
+    color: #fd00fd4d;
 }
 
 .add {
@@ -117,4 +118,9 @@ svg {
     -o-transition: all .4s;
     -moz-transition: all .4s;
     transition: all .4s;
+}
+#login-button:hover {
+    background: #01ff93;
+    color: #862222;
+
 }
