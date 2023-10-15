@@ -2,7 +2,7 @@
 <html lang="en" dir="rtl">
 
 <head>
-    <link rel="stylesheet" href="product-style.css">
+    <link rel="stylesheet" href="css/product-style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>edit</title>
@@ -13,30 +13,35 @@
     <button class="save" id="save-button">save</button>
     <button class="delete" id="delete-button">delete</button>
     </div>
-    <label id="name-label" for="name-input">
+    <label id="name-label" for="name-input" class="label" >
         שם:
-        <input type="text " id="name-input" value="${start_data.name}" placeholder="enter product name">
+        <input class="input" type="text " id="name-input" value="${start_data.name}" placeholder="enter product name">
     </label>
-    <label id="price-label" for="price-input">
+    <label id="price-label" for="price-input" class="label">
         מחיר:
-        <input type="text " id="price-input" value="${start_data.price}" placeholder="enter product price">
+        <input class="input" type="text " id="price-input" value="${start_data.price}" placeholder="enter product price">
     </label>
-    <label id="notes-label" for="notes-input">
+    <label id="notes-label" for="notes-input" class="label">
         הערות ללקוח:
-        <input type="text " id="secondNotes-input" value="${start_data.specialNotes}" placeholder="enter special notes">
+        <input class="input" type="text " id="secondNotes-input" value="${start_data.specialNotes}" placeholder="enter special notes">
     </label>
-    <label id="secondNotes-label" for="secondNotes-input">
+    <label id="secondNotes-label" for="secondNotes-input" class="label">
         הערות למוכר:
-        <input type="text " id="notes-input" value="${start_data.secondSpecialNotes}"
+        <input class="input" type="text " id="notes-input" value="${start_data.secondSpecialNotes}"
             placeholder="enter second special notes">
     </label>
-    <label id="type-label" for="type-input">
+    <label id="type-label" for="type-input" class="label">
         סוג:
-        <input type="text " id="type-input" value="${start_data.type}" placeholder="enter product type">
+        <input class="input" type="text " id="type-input" value="${start_data.type}" placeholder="enter product type">
     </label>
-    <label id="image-label" for="image-input">
+    <label id="image-label" for="image-input" class="label">
         תמונה:
-        <input type="file" id="image-input" accept="image/*">
+        <input class="input" type="file" id="image-input" accept="image/*">
+    </label>
+    <label  id="is_in_stock-label" for="is_in_stock" class="checkbox-label">
+        נמצא במלאי:
+        <input type="checkbox" id="is_in_stock" value="${start_data.is_in_stock}" checked="checked">
+        <span class="checkmark"></span>
     </label>
     <img src="" alt="" id="image-preview">
     <script type="module">
@@ -80,6 +85,7 @@
         const imagePreview = document.getElementById("image-preview");
         const saveButton = document.getElementById("save-button");
         const deleteButton = document.getElementById("delete-button");
+        const is_in_stock = document.getElementById("is_in_stock");
 
         //functions
         imageInput.addEventListener("change", function () {
@@ -95,7 +101,8 @@
                 specialNotes: notesInput.value,
                 secondSpecialNotes: secondNotesInput.value,
                 type: typeInput.value,
-                uri: start_data.uri
+                uri: start_data.uri ,
+                is_in_stock: is_in_stock.checked
             }
             updateData();
         })
@@ -163,6 +170,7 @@
             notesInput.value = start_data.specialNotes;
             secondNotesInput.value = start_data.secondSpecialNotes;
             typeInput.value = start_data.type;
+            is_in_stock.checked = start_data.is_in_stock;
             if (start_data.uri != null) {
                 getDownloadURL(ref(storage, start_data.uri)).then((url) => {
                     imagePreview.src = url;
@@ -196,7 +204,8 @@
                 specialNotes: docSnap.data().specialNotes,
                 secondSpecialNotes: docSnap.data().secondSpecialNotes,
                 type: docSnap.data().type,
-                uri: docSnap.data().uri
+                uri: docSnap.data().uri,
+                is_in_stock: docSnap.data().is_in_stock
             }
             setTheView();
         } else {
@@ -206,7 +215,8 @@
                 specialNotes: null,
                 secondSpecialNotes: null,
                 type: null,
-                uri: "icon.jpg"
+                uri: "icon.jpg" ,
+                is_in_stock: true
             }
             setTheView();
         }
