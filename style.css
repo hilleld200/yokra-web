@@ -1,5 +1,6 @@
 body {
     background:linear-gradient(to top right, #0014ff , #e76666);
+    min-height: 699px;
 }
 
 .card {
