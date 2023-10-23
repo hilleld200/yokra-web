@@ -46,6 +46,10 @@ document.getElementById("search_by_type").addEventListener("click", function () 
     filter_by = "type";
     dialog.close();
 })
+document.getElementById("search_by_mkt").addEventListener("click", function () {
+    filter_by = "mkt";
+    dialog.close();
+})
 //set the add button visibility
 if (localStorage.getItem('admin_access' && document.getElementById("add_img").exs)) {
     document.getElementById("add_img").style.visibility = "visible";
@@ -81,6 +85,13 @@ input_search.addEventListener('input', function (event) {
         }
         if (filter_by == "type") {
             if (product.type.includes(typedLetter)) {
+                document.getElementById("product " + product.id).style.display = "block";
+            } else {
+                document.getElementById("product " + product.id).style.display = "none";
+            }
+        }
+        if (filter_by == "mkt") {
+            if (product.mkt.includes(typedLetter)) {
                 document.getElementById("product " + product.id).style.display = "block";
             } else {
                 document.getElementById("product " + product.id).style.display = "none";
