@@ -1,0 +1,10 @@
+#master_div{
+    display: none;
+}
+#add_folder{
+    font-size: 90px;
+    text-align: center;
+    width: 90%;
+    right: 5%;
+    position: absolute;
+    bottom: 20px;}
