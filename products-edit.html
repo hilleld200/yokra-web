@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <link rel="stylesheet" href="/css/product-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit</title>
+</head>
+
+<body>
+    <i class="fa-solid fa-house fa-fade" onclick="window.location.href='index.html'"></i>
+    <button class="save" id="save-button">save</button>
+    <button class="delete" id="delete-button">delete</button>
+    </div>
+    <label id="name-label" for="name-input" class="label" >
+        שם:
+        <input class="input" type="text " id="name-input" value="${start_data.name}" placeholder="enter product name">
+    </label>
+    <label id="price-label" for="price-input" class="label">
+        מחיר:
+        <input class="input" type="text " id="price-input" value="${start_data.price}" placeholder="enter product price">
+    </label>
+    <label id="notes-label" for="notes-input" class="label">
+        הערות ללקוח:
+        <input class="input" type="text " id="secondNotes-input" value="${start_data.specialNotes}" placeholder="enter special notes">
+    </label>
+    <label id="secondNotes-label" for="secondNotes-input" class="label">
+        הערות למוכר:
+        <input class="input" type="text " id="notes-input" value="${start_data.secondSpecialNotes}"
+            placeholder="enter second special notes">
+    </label>
+    <label id="type-label" for="type-input" class="label">
+        סוג:
+        <input class="input" type="text " id="type-input" value="${start_data.type}" placeholder="enter product type">
+    </label>
+    <label id="image-label" for="image-input" class="label">
+        תמונה:
+        <input class="input" type="file" id="image-input" accept="image/*">
+    </label>
+    <label  id="is_in_stock-label" for="is_in_stock" class="checkbox-label">
+        נמצא במלאי:
+        <input type="checkbox" id="is_in_stock" value="${start_data.is_in_stock}" checked="checked">
+        <span class="checkmark"></span>
+    </label>
+    <label id="mkt-label" for="mkt" class="label">
+        מקט:
+        <input class="input" type="text " id="mkt-input" value="${start_data.mkt}" placeholder="enter product mkt">
+    </label>
+    <img src="" alt="" id="image-preview">
+    <script type="module" src="/js/edit.js"></script>
+
+</body>
+
+</html>
