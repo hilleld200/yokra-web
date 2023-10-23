@@ -50,10 +50,7 @@ document.getElementById("search_by_mkt").addEventListener("click", function () {
     filter_by = "mkt";
     dialog.close();
 })
-//set the add button visibility
-if (localStorage.getItem('admin_access' && document.getElementById("add_img").exs)) {
-    document.getElementById("add_img").style.visibility = "visible";
-} else { document.getElementById("add_img").style.visibility = "hidden"; }
+
 //login button 
 document.getElementById("login-button").addEventListener("click", function () {
     const input_password = document.querySelector(".password").value;
