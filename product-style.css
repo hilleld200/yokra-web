@@ -22,6 +22,12 @@ i {
     left: 10px;
     position: fixed;}
 
+#sale-button{
+    top: unset;
+    position: absolute;
+    bottom: 10px;
+    left: 50vi;
+}
 
 ::placeholder {
     color: #fff;
@@ -67,7 +73,7 @@ label {
     top: 45%;
 }
 
-#name-label {
+div :nth-child(1) {
 
     top: 50px;
 }
@@ -96,7 +102,6 @@ label {
 
     top: 250px;
 }
-
 #mkt-label {
     top:  290px;
 }

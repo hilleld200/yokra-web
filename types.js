@@ -21,24 +21,27 @@ const storage = getStorage(app);
 
 //initialize the variables
 const folders_list = [];
-const master_div_element = document.createElement("div")
+const master_div_element = document.getElementById("grid-continer")
 const master_data_div = document.getElementById("master_div")
 get_data()
 
-//master div element
-master_div_element.id = "master_folder_div";
-document.body.appendChild(master_div_element)
 
 //functions **********************************************************************************************************************************
+
+//set the back button
+document.querySelector(".back").addEventListener("click", function (event) {
+  document.querySelector(".back").style.visibility = "hidden";
+  master_data_div.style.display = "none";
+  master_div_element.style.display = "grid";
+})
+
 function get_data() {
-  console.log("get data");
   getDocs(collection(db, "folder"))
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const folder = {
-          name: doc.data().name
+          name: doc.data().name,
         }
-        console.log(folder);
         show_data(folder);
         folders_list.push(folder);
       })
@@ -54,6 +57,7 @@ function show_data(data) {
   //name element
   name_element.innerHTML = data.name;
   name_element.addEventListener("click", function (event) {
+    document.querySelector(".back").style.visibility = "visible";
     const typedLetter = data.name;
     products_list.filter((product) => {
       if (product.type.includes(typedLetter)) {
@@ -64,6 +68,7 @@ function show_data(data) {
     })
     master_div_element.style.display = "none";
     master_data_div.style.display = "block";
+    event.preventDefault();
   })
   //div element
   div_element.className = "card";

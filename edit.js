@@ -39,6 +39,10 @@ const saveButton = document.getElementById("save-button");
 const deleteButton = document.getElementById("delete-button");
 const is_in_stock = document.getElementById("is_in_stock");
 const mkt = document.getElementById("mkt-input");
+const dateInput = document.getElementById("date-input");
+const saleInput = document.getElementById("sale-input");
+const data_div = document.getElementById("data-div");
+const sale_div = document.getElementById("sale-div"); 
 
 //functions
 imageInput.addEventListener("change", function () {
@@ -48,6 +52,12 @@ imageInput.addEventListener("change", function () {
 })
 
 saveButton.addEventListener("click", function () {
+    let the_date;
+    if (dateInput.value == "") {
+        the_date = null;
+    }else{
+        the_date = new Date(dateInput.value);
+    }
     new_data = {
         name: nameInput.value,
         price: priceInput.value,
@@ -56,7 +66,9 @@ saveButton.addEventListener("click", function () {
         type: typeInput.value,
         uri: start_data.uri ,
         is_in_stock: is_in_stock.checked,
-        mkt : mkt.value
+        mkt : mkt.value,
+        is_on_sale: the_date ,
+        specialSale: saleInput.value
     }
     updateData();
 })
@@ -126,6 +138,9 @@ function setTheView() {
     typeInput.value = start_data.type;
     is_in_stock.checked = start_data.is_in_stock;
     mkt.value = start_data.mkt;
+    dateInput.valueAsDate = start_data.is_on_sale;
+    saleInput.value = start_data.specialSale;
+    console.log(start_data);
     if (start_data.uri != null) {
         getDownloadURL(ref(storage, start_data.uri)).then((url) => {
             imagePreview.src = url;
@@ -149,6 +164,19 @@ function deleteData() {
     });
 }
 
+// sale-button
+const saleButton = document.getElementById("sale-button");
+saleButton.addEventListener("click", function () {
+    if(data_div.style.display == "none" ){
+        data_div.style.display = "block"
+        sale_div.style.display = "none"
+    }
+    else{
+        data_div.style.display = "none"
+        sale_div.style.display = "block"
+    }
+})
+
 //get the start_data
 if (localStorage.getItem('selected_product') != "null") {
     const docRef = doc(db, "products", localStorage.getItem('selected_product'));
@@ -161,7 +189,15 @@ if (localStorage.getItem('selected_product') != "null") {
         type: docSnap.data().type,
         uri: docSnap.data().uri,
         is_in_stock: docSnap.data().is_in_stock,
-        mkt : docSnap.data().mkt
+        mkt : docSnap.data().mkt,
+        is_on_sale : docSnap.data().is_on_sale,
+        specialSale : docSnap.data().specialSale
+    }
+    if (!start_data.is_on_sale){
+        start_data.is_on_sale = null
+    }else{
+        start_data.is_on_sale =start_data.is_on_sale.toDate()
+        console.log(start_data.is_on_sale)
     }
     setTheView();
 } else {
@@ -173,7 +209,9 @@ if (localStorage.getItem('selected_product') != "null") {
         type: null,
         uri: "icon.jpg" ,
         is_in_stock: true,
-        mkt: null
+        mkt: null,
+        is_on_sale : null,
+        specialSale : null
     }
     setTheView();
 }
