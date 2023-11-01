@@ -47,7 +47,6 @@ body {
   color: white;
   font-size: 20px;
   font-weight: bold;
-  z-index: 5;
 }
 
 .card {
@@ -121,6 +120,7 @@ body {
   right: 5%;
   position: absolute;
   bottom: 20px;
+    z-index: -1;
 }
 
 form {
