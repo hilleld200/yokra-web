@@ -53,7 +53,6 @@ function show_data(data) {
   //create the elements
   const div_element = document.createElement("div");
   const name_element = document.createElement("a");
-  const line_break = document.createElement("hr");
   //name element
   name_element.innerHTML = data.name;
   name_element.addEventListener("click", function (event) {
@@ -74,6 +73,5 @@ function show_data(data) {
   div_element.className = "card";
   //append the elements
   div_element.appendChild(name_element);
-  div_element.appendChild(line_break);
   master_div_element.appendChild(div_element);
 }

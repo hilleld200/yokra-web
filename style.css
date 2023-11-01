@@ -6,19 +6,22 @@
 }
 
 .grid-continer {
-  margin-top: 20px;
-  margin: auto;
-  width: 75%;
-  height: 100%; 
+ margin: 20px auto; 
+  width: 85%;
+  height: 100%;
   display: grid;
   grid-template-columns: 50% 50%;
   row-gap: 20px;
   column-gap: 20px;
-
+  justify-items: stretch;
 }
 
 
 
+.products {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 body {
   background: linear-gradient(to top right, #0014ff, #e76666);
@@ -47,25 +50,28 @@ body {
 }
 
 .card {
+  position: relative;
   border-radius: 60px;
-  border: 5px solid;
   margin: auto;
-  width: 60%;
+  width: 340px;
+  min-height: 400px;
   padding: 10px;
-  height: 100%;
   text-align: center;
   margin-top: 30px;
   background-color: rgba(255, 255, 255, 0.458);
-  box-shadow: 8px 5px 11px 3px #000000;
+  box-shadow: 10px 10px 0px 0px #000000c9;
 }
-.grid-continer div{
+
+.grid-continer .card {
   margin: unset;
   width: unset;
-  }
+  min-height: unset;
+}
 
-  .grid-continer :first-child {
-    grid-column: span 2;
-  }
+.grid-continer :first-child {
+  grid-column: 1/-1;
+  max-width: unset;
+}
 
 .card div img {
   width: -webkit-fill-available;
@@ -117,7 +123,6 @@ body {
 }
 
 form {
-  border: 0.5px solid;
   background: linear-gradient(to right, #000000b8, #ffffff63);
   width: 300px;
   height: 44px;
@@ -125,6 +130,8 @@ form {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+  margin: 5px;
 }
 
 input {
@@ -157,11 +164,8 @@ svg {
 }
 
 .login {
-  border: 0.5px solid black;
   background: linear-gradient(to right, #000000b8, #ffffff63);
-  color: #fff;
-  border-radius: 5px;
-  margin-top: 10px;
+  margin: 5px;
   width: 300px;
   height: 44px;
   border-radius: 5px;
@@ -298,11 +302,25 @@ svg {
 }
 
 .up {
+  z-index: 1;
   position: fixed;
   bottom: 20px;
   right: 20px;
 }
 
 .up i {
-  font-size: 1000%;
+  font-size: 90px;
+  text-align: center;
+}
+
+@media(min-width:40rem) {
+  .grid-continer {
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+
+@media (min-width:60rem) {
+  .grid-continer {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
 }
