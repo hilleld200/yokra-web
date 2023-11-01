@@ -47,6 +47,7 @@ body {
   color: white;
   font-size: 20px;
   font-weight: bold;
+  z-index: 5;
 }
 
 .card {
