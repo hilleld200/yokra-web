@@ -6,7 +6,7 @@
 }
 
 .grid-continer {
- margin: 20px auto; 
+  margin: 20px auto;
   width: 85%;
   height: 100%;
   display: grid;
@@ -116,8 +116,8 @@ body {
 .add {
   font-size: 90px;
   text-align: center;
-  width: 90%;
-  right: 5%;
+  width: 50%;
+  right: 25%;
   position: absolute;
   bottom: 20px;
   z-index: -1;
