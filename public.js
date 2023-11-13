@@ -129,8 +129,8 @@ document.getElementById("main-herf").addEventListener("click", function () {
 
 
 //spicel sale function
-document.getElementById("sale-href").addEventListener("click", function() {
-    reg_herf(); 
+document.getElementById("sale-href").addEventListener("click", function () {
+    reg_herf();
     products_list.filter((product) => {
         if (product.is_on_sale) {
             if (product.is_on_sale.toDate() > myDate) {
@@ -181,7 +181,7 @@ function getData() {
             })
         })
 
-        full_products_list = products_list;
+    full_products_list = products_list;
     document.body.appendChild(master_div_element);
 
 }
@@ -207,7 +207,7 @@ function show_data(data) {
     }
 
     //name element
-    name_element.innerHTML = data.name;
+    name_element.innerHTML = data.name.replace("^", "/");
     name_element.addEventListener("click", function (event) {
         if (localStorage.getItem('admin_access') == "true") {
             localStorage.setItem('selected_product', data.name);
@@ -261,18 +261,18 @@ function show_data(data) {
 
 function get_folder_data() {
     getDocs(collection(db, "folder"))
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          const folder = {
-            name: doc.data().name,
-          }
-          show_folder_data(folder);
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const folder = {
+                    name: doc.data().name,
+                }
+                show_folder_data(folder);
+            })
         })
-      })
-  }
-  
-  
-  function show_folder_data(data) {
+}
+
+
+function show_folder_data(data) {
     //create the elements
     const div_element = document.createElement("div");
     const name_element = document.createElement("a");
@@ -280,31 +280,31 @@ function get_folder_data() {
     name_element.innerHTML = data.name;
     name_element.addEventListener("click", function (event) {
         const temp_list = [];
-      document.querySelector(".back").style.visibility = "visible";
-      const typedLetter = data.name;
-      products_list.filter((product) => {
-        if (product.type.includes(typedLetter)) {
-          document.getElementById("product " + product.id).style.display = "block";
-          temp_list.push(product);
-        } else {
-          document.getElementById("product " + product.id).style.display = "none";
-        }
-      })
-      products_list = temp_list;
-      master_data_div.style.display = "none";
-      master_div_element.style.display = "flex";
-      event.preventDefault();
+        document.querySelector(".back").style.visibility = "visible";
+        const typedLetter = data.name;
+        products_list.filter((product) => {
+            if (product.type.includes(typedLetter)) {
+                document.getElementById("product " + product.id).style.display = "block";
+                temp_list.push(product);
+            } else {
+                document.getElementById("product " + product.id).style.display = "none";
+            }
+        })
+        products_list = temp_list;
+        master_data_div.style.display = "none";
+        master_div_element.style.display = "flex";
+        event.preventDefault();
     })
     //div element
     div_element.className = "card";
     //append the elements
     div_element.appendChild(name_element);
     master_data_div.appendChild(div_element);
-  }
-  //set the back button
-    document.querySelector(".back").addEventListener("click", function () {
+}
+//set the back button
+document.querySelector(".back").addEventListener("click", function () {
     document.querySelector(".back").style.visibility = "hidden";
     products_list = full_products_list;
     master_div_element.style.display = "none";
     master_data_div.style.display = "grid";
-  })
+})

@@ -70,6 +70,8 @@ saveButton.addEventListener("click", function () {
         is_on_sale: the_date,
         specialSale: saleInput.value
     }
+    new_data.name = new_data.name.trim();
+    new_data.name = new_data.name.replace("/", "^");
     updateData();
 })
 
@@ -131,7 +133,7 @@ function uploadImage() {
 }
 
 function setTheView() {
-    nameInput.value = start_data.name;
+    nameInput.value = start_data.name.replace("^", "/");
     priceInput.value = start_data.price;
     notesInput.value = start_data.specialNotes;
     secondNotesInput.value = start_data.secondSpecialNotes;
