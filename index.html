@@ -33,22 +33,21 @@
     <input class="password" type="password" placeholder="Enter your password">
     <button id="login-button">login</button>
   </div>
+  <button style="visibility: hidden;" class="back"><i class="fa-solid fa-arrow-left"></i></button>
   <label class="hamburger-menu">
     <input type="checkbox" />
   </label>
   <aside class="sidebar">
     <nav>
-      <div id="main-herf" class="in-menu-text"><a href="index.html"
-          ><i
-            class="fa-solid fa-house"></i>בית</a></div>
-      <div class="in-menu-text"><a href="types.html"
-          onclick="if(window.location.pathname.includes('types.html')){event.preventDefault();}"><i
+      <div id="main-herf" class="in-menu-text"><a><i class="fa-solid fa-house"></i>בית </a></div>
+      <div id="types-href" class="in-menu-text"><a><i
             class="fa-solid fa-folder"></i>חיפוש לפי תגיות</a></div>
-      <div id="sale-href" class="in-menu-text"><a href=""><i class="fa-solid fa-cart-shopping fa-fade"
+      <div id="sale-href" class="in-menu-text"><a><i class="fa-solid fa-cart-shopping fa-fade"
             style="color: #e4e708;"></i>מבצעים!</a></div>
       <img class="add" id="add_img" src="	https://cdn-icons-png.flaticon.com/512/6711/6711415.png" alt="add button">
     </nav>
   </aside>
+  <div class="grid-continer" id="grid-continer" style="display: none;"></div>
   <script type="module" src="public.js"></script>
   <script type="module" src="main.js"></script>
 </body>

@@ -42,7 +42,7 @@ const mkt = document.getElementById("mkt-input");
 const dateInput = document.getElementById("date-input");
 const saleInput = document.getElementById("sale-input");
 const data_div = document.getElementById("data-div");
-const sale_div = document.getElementById("sale-div"); 
+const sale_div = document.getElementById("sale-div");
 
 //functions
 imageInput.addEventListener("change", function () {
@@ -55,7 +55,7 @@ saveButton.addEventListener("click", function () {
     let the_date;
     if (dateInput.value == "") {
         the_date = null;
-    }else{
+    } else {
         the_date = new Date(dateInput.value);
     }
     new_data = {
@@ -64,10 +64,10 @@ saveButton.addEventListener("click", function () {
         specialNotes: notesInput.value,
         secondSpecialNotes: secondNotesInput.value,
         type: typeInput.value,
-        uri: start_data.uri ,
+        uri: start_data.uri,
         is_in_stock: is_in_stock.checked,
-        mkt : mkt.value,
-        is_on_sale: the_date ,
+        mkt: mkt.value,
+        is_on_sale: the_date,
         specialSale: saleInput.value
     }
     updateData();
@@ -167,11 +167,11 @@ function deleteData() {
 // sale-button
 const saleButton = document.getElementById("sale-button");
 saleButton.addEventListener("click", function () {
-    if(data_div.style.display == "none" ){
+    if (data_div.style.display == "none") {
         data_div.style.display = "block"
         sale_div.style.display = "none"
     }
-    else{
+    else {
         data_div.style.display = "none"
         sale_div.style.display = "block"
     }
@@ -189,14 +189,14 @@ if (localStorage.getItem('selected_product') != "null") {
         type: docSnap.data().type,
         uri: docSnap.data().uri,
         is_in_stock: docSnap.data().is_in_stock,
-        mkt : docSnap.data().mkt,
-        is_on_sale : docSnap.data().is_on_sale,
-        specialSale : docSnap.data().specialSale
+        mkt: docSnap.data().mkt,
+        is_on_sale: docSnap.data().is_on_sale,
+        specialSale: docSnap.data().specialSale
     }
-    if (!start_data.is_on_sale){
+    if (!start_data.is_on_sale) {
         start_data.is_on_sale = null
-    }else{
-        start_data.is_on_sale =start_data.is_on_sale.toDate()
+    } else {
+        start_data.is_on_sale = start_data.is_on_sale.toDate()
         console.log(start_data.is_on_sale)
     }
     setTheView();
@@ -207,11 +207,11 @@ if (localStorage.getItem('selected_product') != "null") {
         specialNotes: null,
         secondSpecialNotes: null,
         type: null,
-        uri: "icon.jpg" ,
+        uri: "icon.jpg",
         is_in_stock: true,
         mkt: null,
-        is_on_sale : null,
-        specialSale : null
+        is_on_sale: null,
+        specialSale: null
     }
     setTheView();
 }

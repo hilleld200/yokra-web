@@ -1,11 +1,12 @@
 body {
-    background: linear-gradient(to right, #6d75d0b1  , #474e9c);
+    background: linear-gradient(to right, #6d75d0b1, #474e9c);
     margin: 10px;
     padding: 10px;
     position: relative;
     height: 90vh;
     width: 90vw;
 }
+
 
 input {
     all: unset;
@@ -20,9 +21,10 @@ i {
     font-size: 90px;
     top: 10px;
     left: 10px;
-    position: fixed;}
+    position: fixed;
+}
 
-#sale-button{
+#sale-button {
     top: unset;
     position: absolute;
     bottom: 10px;
@@ -102,12 +104,13 @@ div :nth-child(1) {
 
     top: 250px;
 }
+
 #mkt-label {
-    top:  290px;
+    top: 290px;
 }
 
 .checkbox-label {
-   
+
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;

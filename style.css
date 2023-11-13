@@ -43,6 +43,8 @@ body {
 }
 
 .in-menu-text a {
+  cursor: pointer;
+  
   color: #da9481;
 }
 

@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebas
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
 import { doc, getFirestore, collection, addDoc, getDocs, getDoc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
-let products_list = [];
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC_05cP9iqq6dZ1wB78_r7-XYFrTO7guhM",
@@ -21,13 +20,18 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 //initialize the variables
+let products_list = [];
+let full_products_list = [];
 const master_div_element = document.createElement("div");
+const master_data_div = document.getElementById("grid-continer");
 let filter_by = "name";
 const input_search = document.querySelector("#query");
 const myDate = new Date();
 let is_sale_on = false;
 
+
 getData();
+get_folder_data();
 
 //set the master div
 master_div_element.id = "master_div";
@@ -110,27 +114,23 @@ input_search.addEventListener('input', function (event) {
 
     })
 });
-
-// main herf
-if (window.location.pathname.includes('index.html')) {
-    document.getElementById("main-herf").addEventListener("click", function (event) {
-        products_list.forEach((product) => {
-            document.getElementById("product " + product.id).style.display = "block";
-        })
-        event.preventDefault();
-    })
+function reg_herf() {
+    products_list = full_products_list;
+    master_div_element.style.display = "flex";
+    master_data_div.style.display = "none";
 }
+// main herf
+document.getElementById("main-herf").addEventListener("click", function () {
+    reg_herf();
+    products_list.forEach((product) => {
+        document.getElementById("product " + product.id).style.display = "block";
+    })
+})
+
 
 //spicel sale function
-document.getElementById("sale-href").addEventListener("click", function (event) {
-    if (window.location.pathname.includes('index.html')) {
-        event.preventDefault();
-    } else {
-        window.location.href = "index.html";
-        event.preventDefault();
-    }
-
-
+document.getElementById("sale-href").addEventListener("click", function() {
+    reg_herf(); 
     products_list.filter((product) => {
         if (product.is_on_sale) {
             if (product.is_on_sale.toDate() > myDate) {
@@ -140,6 +140,12 @@ document.getElementById("sale-href").addEventListener("click", function (event) 
         }
         document.getElementById("product " + product.id).style.display = "none";
     })
+})
+
+//type herf
+document.getElementById("types-href").addEventListener("click", function (event) {
+    master_div_element.style.display = "none";
+    master_data_div.style.display = "grid";
 })
 
 
@@ -175,6 +181,7 @@ function getData() {
             })
         })
 
+        full_products_list = products_list;
     document.body.appendChild(master_div_element);
 
 }
@@ -252,4 +259,52 @@ function show_data(data) {
     master_div_element.appendChild(div_element);
 }
 
-export { products_list };
+function get_folder_data() {
+    getDocs(collection(db, "folder"))
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const folder = {
+            name: doc.data().name,
+          }
+          show_folder_data(folder);
+        })
+      })
+  }
+  
+  
+  function show_folder_data(data) {
+    //create the elements
+    const div_element = document.createElement("div");
+    const name_element = document.createElement("a");
+    //name element
+    name_element.innerHTML = data.name;
+    name_element.addEventListener("click", function (event) {
+        const temp_list = [];
+      document.querySelector(".back").style.visibility = "visible";
+      const typedLetter = data.name;
+      products_list.filter((product) => {
+        if (product.type.includes(typedLetter)) {
+          document.getElementById("product " + product.id).style.display = "block";
+          temp_list.push(product);
+        } else {
+          document.getElementById("product " + product.id).style.display = "none";
+        }
+      })
+      products_list = temp_list;
+      master_data_div.style.display = "none";
+      master_div_element.style.display = "flex";
+      event.preventDefault();
+    })
+    //div element
+    div_element.className = "card";
+    //append the elements
+    div_element.appendChild(name_element);
+    master_data_div.appendChild(div_element);
+  }
+  //set the back button
+    document.querySelector(".back").addEventListener("click", function () {
+    document.querySelector(".back").style.visibility = "hidden";
+    products_list = full_products_list;
+    master_div_element.style.display = "none";
+    master_data_div.style.display = "grid";
+  })
