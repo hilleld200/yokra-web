@@ -4,6 +4,10 @@
   box-sizing: border-box;
   margin: 0;
 }
+/* a, p, input{
+  text-overflow: ellipsis;
+  overflow: hidden;
+} */
 
 .grid-continer {
   margin: 20px auto;
@@ -26,7 +30,7 @@
 body {
   background: linear-gradient(to top right, #0014ff, #e76666);
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
 }
 
 *::-webkit-scrollbar {
@@ -60,6 +64,19 @@ body {
   margin-top: 30px;
   background-color: rgba(255, 255, 255, 0.458);
   box-shadow: 10px 10px 0px 0px #000000c9;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 20px 20px 6px 0px #000000;
+  transform: scale(1.05);
+  transition: all 0.5s ease;
+  cursor: pointer;
+  border-radius: 60px;
+  border: 0.5px solid;
+  background-color: rgba(255, 255, 255, 0.67);
+  overflow: visible;
 }
 
 .grid-continer .card {
@@ -93,9 +110,11 @@ body {
   font-size: 40px;
 }
 
-.card a:hover {
+.card:hover a {
   text-decoration: underline;
-  color: #fd00fd4d;
+  color: #371e1e;
+  transition: all 0.5s cubic-bezier(0.4, 0, 1, 1);
+  z-index: 1;
 }
 
 .back {
