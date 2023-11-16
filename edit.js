@@ -28,29 +28,33 @@ let isImgSelected = false;
 let isUploaded = true;
 let file;
 
-const nameInput = document.getElementById("name-input");
-const priceInput = document.getElementById("price-input");
-const notesInput = document.getElementById("notes-input");
 const secondNotesInput = document.getElementById("secondNotes-input");
-const typeInput = document.getElementById("type-input");
-const imageInput = document.getElementById("image-input");
 const imagePreview = document.getElementById("image-preview");
-const saveButton = document.getElementById("save-button");
 const deleteButton = document.getElementById("delete-button");
 const is_in_stock = document.getElementById("is_in_stock");
-const mkt = document.getElementById("mkt-input");
+const priceInput = document.getElementById("price-input");
+const notesInput = document.getElementById("notes-input");
+const imageInput = document.getElementById("image-input");
+const saveButton = document.getElementById("save-button");
+const saleButton = document.getElementById("sale-button");
+const nameInput = document.getElementById("name-input");
+const typeInput = document.getElementById("type-input");
 const dateInput = document.getElementById("date-input");
 const saleInput = document.getElementById("sale-input");
 const data_div = document.getElementById("data-div");
 const sale_div = document.getElementById("sale-div");
+const mkt = document.getElementById("mkt-input");
 
-//functions
+
+//functions******************************************************************************
+// image input
 imageInput.addEventListener("change", function () {
     isImgSelected = true;
     imagePreview.src = URL.createObjectURL(imageInput.files[0]);
     file = imageInput.files[0];
 })
 
+// save button
 saveButton.addEventListener("click", function () {
     let the_date;
     if (dateInput.value == "") {
@@ -75,10 +79,12 @@ saveButton.addEventListener("click", function () {
     updateData();
 })
 
+// delete button
 deleteButton.addEventListener("click", function () {
     deleteData();
 })
 
+// update data
 function updateData() {
     if (nameInput.value == "") {
         alert("enter product name");
@@ -104,6 +110,7 @@ function updateData() {
 
 }
 
+// upload image
 function uploadImage() {
     const storageRef = ref(storage, new_data.uri);
 
@@ -132,6 +139,7 @@ function uploadImage() {
     }
 }
 
+// set the views
 function setTheView() {
     nameInput.value = start_data.name.replace("^", "/");
     priceInput.value = start_data.price;
@@ -154,6 +162,7 @@ function setTheView() {
     }
 }
 
+// delete data
 function deleteData() {
     if (start_data.name == null) {
         alert("no product to delete");
@@ -167,7 +176,6 @@ function deleteData() {
 }
 
 // sale-button
-const saleButton = document.getElementById("sale-button");
 saleButton.addEventListener("click", function () {
     if (data_div.style.display == "none") {
         data_div.style.display = "block"
