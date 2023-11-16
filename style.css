@@ -61,6 +61,7 @@ body {
   position: relative;
   border-radius: 60px;
   margin: auto;
+  max-width: 78%;
   width: 340px;
   min-height: 400px;
   padding: 10px;

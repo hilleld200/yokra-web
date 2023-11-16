@@ -319,6 +319,7 @@ function show_folder_data(data) {
     })
     //div element
     div_element.className = "card";
+    div_element.style.maxWidth = "unset";
     //append the elements
     div_element.appendChild(name_element);
     master_data_div.appendChild(div_element);
