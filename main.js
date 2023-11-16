@@ -303,6 +303,7 @@ function show_folder_data(data) {
     name_element.addEventListener("click", function (event) {
         const temp_list = [];
         document.querySelector(".back").style.visibility = "visible";
+        document.querySelector(".back").style.display = "block";
         const typedLetter = data.name;
         products_list.filter((product) => {
             if (product.type.includes(typedLetter)) {
