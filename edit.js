@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-import { getFirestore, collection, addDoc, getDocs, getDoc, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { getFirestore, addDoc, collection, updateDoc, getDocs, getDoc, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 
 // Your web app's Firebase configuration
@@ -22,13 +21,17 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 //Initialize the variables
+let newsList = [];
 let start_data;
 let new_data;
 let isImgSelected = false;
 let isUploaded = true;
+let isNewsUpdeted = false;
 let file;
 
 const secondNotesInput = document.getElementById("secondNotes-input");
+const newsButton = document.getElementsByClassName("fa-newspaper")[0];
+const addNews = document.getElementsByClassName("add-news")[0];
 const imagePreview = document.getElementById("image-preview");
 const deleteButton = document.getElementById("delete-button");
 const is_in_stock = document.getElementById("is_in_stock");
@@ -43,8 +46,10 @@ const dateInput = document.getElementById("date-input");
 const saleInput = document.getElementById("sale-input");
 const data_div = document.getElementById("data-div");
 const sale_div = document.getElementById("sale-div");
+const newsDiv = document.getElementById("news-div");
 const mkt = document.getElementById("mkt-input");
 
+get_news_data();
 
 //functions******************************************************************************
 // image input
@@ -76,6 +81,9 @@ saveButton.addEventListener("click", function () {
     }
     new_data.name = new_data.name.trim();
     new_data.name = new_data.name.replace("/", "^");
+    if(isNewsUpdeted){
+        updateNews();
+    }
     updateData();
 })
 
@@ -83,6 +91,22 @@ saveButton.addEventListener("click", function () {
 deleteButton.addEventListener("click", function () {
     deleteData();
 })
+
+// update news
+async function updateNews(){
+    await getDocs(collection(db, "news")).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            if(document.getElementById(doc.id)){
+                updateDoc(doc.ref, {
+                    text: document.getElementById(doc.id).querySelector("input").value
+                })
+            }else{
+                deleteDoc(doc.ref)
+            }
+            
+        })
+    })
+}
 
 // update data
 function updateData() {
@@ -141,7 +165,10 @@ function uploadImage() {
 
 // set the views
 function setTheView() {
-    nameInput.value = start_data.name.replace("^", "/");
+    nameInput.value = start_data.name
+    if (start_data.name && start_data.name.includes("^")) {
+        nameInput.value = start_data.name.replace("^", "/");
+    }
     priceInput.value = start_data.price;
     notesInput.value = start_data.specialNotes;
     secondNotesInput.value = start_data.secondSpecialNotes;
@@ -163,7 +190,27 @@ function setTheView() {
 }
 
 // delete data
-function deleteData() {
+function deleteData(d) {
+    if (d) {
+        document.getElementById(d).style.backgroundColor = "pink";
+        deleteDoc(doc(db, "news", d)).then(() => {
+            document.getElementById(d).remove();
+            newsList = newsList.filter((item) => item.id !== d);
+            return;
+
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+            alert("Error removing document: " + error);
+            document.getElementById(d).style.backgroundColor = "white";
+            return;
+
+        });
+        return;
+    }
+    if (start_data.name == null) {
+        alert("no product to delete");
+        return;
+    }
     if (start_data.name == null) {
         alert("no product to delete");
         return;
@@ -177,15 +224,81 @@ function deleteData() {
 
 // sale-button
 saleButton.addEventListener("click", function () {
+    newsDiv.style.display = "none"
+    addNews.style.display = "none"
+    newsButton.style.display = "block"
     if (data_div.style.display == "none") {
-        data_div.style.display = "block"
+        data_div.style.display = "flex"
         sale_div.style.display = "none"
     }
     else {
         data_div.style.display = "none"
-        sale_div.style.display = "block"
+        sale_div.style.display = "flex"
     }
 })
+
+// add news button
+addNews.addEventListener("click", async function () {
+    const docRef = await addDoc(collection(db, "news"), {
+        text: null
+    })
+    const news = {
+        text: null,
+        id: docRef.id
+    }
+    set_news(news)
+    newsList.push(news)
+
+})
+
+// news-button
+newsButton.addEventListener("click", function () {
+    data_div.style.display = "none"
+    sale_div.style.display = "none"
+    newsButton.style.display = "none"
+    addNews.style.display = "block"
+    newsDiv.style.display = "flex"
+    isNewsUpdeted = true;
+})
+
+// get the news
+async function get_news_data() {
+    const querySnapshot = await getDocs(collection(db, "news"));
+    querySnapshot.forEach((doc) => {
+        const news = {
+            id: doc.id,
+            text: doc.data().text
+        }
+        set_news(news);
+        newsList.push(news);
+    });
+
+}
+
+function set_news(data) {
+    const labelElement = document.createElement("label");
+    const inputElement = document.createElement("input");
+    const iElement = document.createElement("i");
+
+    // input element
+    inputElement.value = data.text;
+    labelElement.appendChild(inputElement);
+
+    // i elemnet
+    iElement.classList.add("fa-solid", "fa-trash");
+    iElement.style.color = "red";
+    iElement.style.fontSize = "16px"
+    iElement.addEventListener("click", function () {
+        deleteData(data.id)
+    })
+    labelElement.appendChild(iElement);
+
+    // label element
+    labelElement.setAttribute("id", data.id);
+    labelElement.classList.add("label");
+    newsDiv.appendChild(labelElement);
+
+}
 
 //get the start_data
 if (localStorage.getItem('selected_product') != "null") {

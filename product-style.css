@@ -10,26 +10,63 @@ body {
 
 input {
     all: unset;
+    flex-grow: 1;
     font: 16px system-ui;
     color: #ffffffc6;
     padding: 6px 10px;
-    text-align: center;
-    right: 150px;
 }
 
+.data-divs {
+    size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    max-height: 50% ;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    
+}
+/* Style the scrollbar track */
+::-webkit-scrollbar {
+    width: 10px; /* Adjust the width */
+  }
+  
+  /* Style the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* Adjust the color */
+    border-radius: 5px; /* Adjust the border radius */
+  }
+  
+  /* Style the scrollbar thumb on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Adjust the hover color */
+  }
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
 i {
     font-size: 90px;
+}
+
+.home {
     top: 10px;
     left: 10px;
     position: fixed;
 }
 
-#sale-button {
-    top: unset;
-    position: absolute;
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     bottom: 10px;
-    left: 50vi;
+    right: 10px;
+    left: 10px;
+    position: fixed;
 }
+
+
 
 ::placeholder {
     color: #fff;
@@ -37,6 +74,7 @@ i {
 }
 
 label {
+    position: relative;
     min-width: 30%;
     height: 30px;
     background-color: #9097e3;
@@ -44,90 +82,14 @@ label {
     display: flex;
     flex-direction: row;
     align-items: center;
-    right: 50px;
-    position: absolute;
-}
-
-.save {
-    right: 0px;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    bottom: 10px;
-    cursor: pointer;
-}
-
-.delete {
-    left: 0px;
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    bottom: 10px;
-    cursor: pointer;
 }
 
 #image-preview {
     max-width: 68%;
     max-height: 80%;
     position: relative;
-    right: 15%;
     z-index: -1;
-    top: 45%;
-}
-
-div :nth-child(1) {
-
-    top: 50px;
-}
-
-#price-label {
-
-    top: 90px;
-}
-
-#notes-label {
-
-    top: 130px;
-}
-
-#secondNotes-label {
-
-    top: 170px;
-}
-
-#type-label {
-
-    top: 210px;
-}
-
-#image-label {
-
-    top: 250px;
-}
-
-#mkt-label {
-    top: 290px;
-}
-
-.checkbox-label {
-
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-width: 30%;
-    height: 30px;
-    background-color: #9097e3;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    right: 50px;
-    position: absolute;
+    margin: 10px;
 }
 
 .checkbox-label input {
@@ -139,8 +101,8 @@ div :nth-child(1) {
 }
 
 .checkmark {
-    position: absolute;
-    left: 10%;
+    position: relative;
+    margin: 10px;
     height: 25px;
     width: 25px;
     background-color: #eee;

@@ -4,7 +4,10 @@
   box-sizing: border-box;
   margin: 0;
 }
-a, p, h1{
+
+a,
+p,
+h1 {
   text-overflow: ellipsis;
   overflow: hidden;
   direction: rtl;
@@ -149,7 +152,7 @@ body {
 
 form {
   background: linear-gradient(to right, #000000b8, #ffffff63);
-  width: 300px;
+  max-width: 300px;
   height: 44px;
   border-radius: 5px;
   display: flex;
@@ -330,13 +333,82 @@ svg {
 .up {
   z-index: 1;
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 20px;
 }
 
 .up i {
   font-size: 90px;
   text-align: center;
+}
+
+.news-ticker {
+  width: 100%;
+  height: 40px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  font-family: "Roboto", sans-serif;
+  box-shadow: inset 0 4px 8px -4px rgba(0, 0, 0, 0.3);
+  background-color: rgb(0, 0, 0, .3);
+}
+
+.news-title {
+  position: absolute;
+  background: #df2020;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  color: white;
+  font-weight: bold;
+  z-index: 1;
+}
+
+#news-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  /* Prevents news items from wrapping to the next line */
+  animation: ticker 10s infinite linear;
+}
+
+.news-item {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  white-space: nowrap;
+  /* Prevents news items from wrapping to the next line */
+  overflow: hidden;
+  /* Hides any overflowing text */
+  text-overflow: ellipsis;
+  /* Adds ellipsis (...) to indicate truncated text */
+}
+
+.news-item::after {
+  content: "";
+  width: 3px;
+  height: 100%;
+  background: #766363;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(340%);
+  }
 }
 
 @media(min-width:40rem) {

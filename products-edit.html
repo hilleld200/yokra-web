@@ -12,11 +12,9 @@
 </head>
 
 <body>
-    <i class="fa-solid fa-house fa-fade" onclick="window.location.href='index.html'"></i>
-    <button class="save" id="save-button">save</button>
-    <i id="sale-button" class="fa-solid fa-cart-shopping" style="color: #e4e708;"></i>
-    <button class="delete" id="delete-button">delete</button>
-    <div id="sale-div" style="display: none;">
+    <i class="fa-solid fa-house fa-fade home" onclick="window.location.href='index.html'"></i>
+
+    <div id="sale-div" class="data-divs" style="display: none;">
         <label id="date-label" for="date-input" class="label">
             תאריך:
             <input class="input" type="date" id="date-input">
@@ -26,7 +24,8 @@
             <input class="input" type="text " id="sale-input" placeholder="enter product sale type">
         </label>
     </div>
-    <div id="data-div">
+    <div id="news-div" class="data-divs " style="display: none;"></div>
+    <div id="data-div" class="data-div data-divs">
         <label id="name-label" for="name-input" class="label">
             שם:
             <input class="input" type="text " id="name-input" placeholder="enter product name">
@@ -48,6 +47,7 @@
             <input list="type-list" class="input" type="text " id="type-input" placeholder="enter product type">
             <datalist id="type-list">
                 <option value="גדרות במבוק"></option>
+                <option value="זרי כלה"></option>
                 <option value="דשא"></option>
                 <option value="חוסכי מים"></option>
                 <option value="כלי נוי"></option>
@@ -79,7 +79,7 @@
         </label>
         <label id="mkt-label" for="mkt" class="label">
             מקט:
-            <input class="input" type="text " id="mkt-input"  placeholder="enter product mkt">
+            <input class="input" type="text " id="mkt-input" placeholder="enter product mkt">
         </label>
     </div>
     <img src="" alt="" id="image-preview">
@@ -87,6 +87,12 @@
 
 </body>
 
+<footer>
+    <i id="save-button" class="fa-solid fa-floppy-disk save" style="color: white;"></i>
+    <i id="sale-button" class="fa-solid fa-cart-shopping " ></i>
+    <i class="fa-solid fa-plus add-news" style="color: green; cursor: pointer; display: none;"></i>
+    <i class="fa-solid fa-newspaper " style="color: saddlebrown;" ></i> 
+    <i id="delete-button" class="fa-solid fa-trash delete" style="color: red;"></i>
+</footer>
+
 </html>
-
-

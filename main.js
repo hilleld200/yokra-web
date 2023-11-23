@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import {getFirestore, collection,  getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,15 +21,39 @@ const storage = getStorage(app);
 //initialize the variables
 let products_list = [];
 let full_products_list = [];
+const news_list = [];
 const master_div_element = document.createElement("div");
 const master_data_div = document.getElementById("grid-continer");
 let filter_by = "name";
 const input_search = document.querySelector("#query");
 const myDate = new Date();
 
+const newsList = document.getElementById("news-list");
+
+
+function addNewsItem(news) {
+  const li = document.createElement("li");
+  li.classList.add("news-item");
+  li.textContent = news;
+  newsList.appendChild(li);
+  
+  // Adjust the width of the ticker container based on the total width of news items
+  const totalWidth = getTotalWidth();
+  newsList.style.width = totalWidth + "px";
+}
+
+function getTotalWidth() {
+  let totalWidth = 0;
+  const newsItems = document.querySelectorAll(".news-item");
+  newsItems.forEach((item) => {
+    totalWidth += item.offsetWidth + parseInt(getComputedStyle(item).marginRight);
+  });
+  return totalWidth;
+}
 
 getData();
 get_folder_data();
+get_news_data();
 
 //set the master div
 master_div_element.id = "master_div";
@@ -177,8 +201,6 @@ document.getElementById("types-href").addEventListener("click", function (event)
 async function getData() {
     const querySnapshot = await getDocs(collection(db, "products"));
     let i = 0
-
-
     querySnapshot.forEach((doc) => {
 
         const corerct_product = {
@@ -201,12 +223,22 @@ async function getData() {
 
         products_list.push(corerct_product);
         show_data(corerct_product);
-        i ++
+        i++
     });
 
     full_products_list = products_list;
     document.body.appendChild(master_div_element);
 }
+function get_news_data() {
+    getDocs(collection(db, "news")).then((querySnapshot) => {
+        querySnapshot.forEach((doc,) => {
+            const news = doc.data().text
+            news_list.push(news);
+            addNewsItem(news)
+        })
+    })
+}
+
 // show the data from the getData function
 function show_data(data) {
     //create the elements
