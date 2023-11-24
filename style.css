@@ -374,7 +374,7 @@ svg {
   margin: 0;
   white-space: nowrap;
   /* Prevents news items from wrapping to the next line */
-  animation: ticker 10s infinite linear;
+  animation: ticker 40s infinite linear;
 }
 
 .news-item {
@@ -408,7 +408,7 @@ svg {
   }
 
   100% {
-    transform: translateX(340%);
+    transform: translateX(100vw);
   }
 }
 
