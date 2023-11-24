@@ -412,6 +412,20 @@ svg {
   }
 }
 
+@media (max-width: 40rem) {
+  #news-list {
+    animation: ticker 20s infinite linear;
+  }
+  
+  @keyframes ticker {
+    0% {
+      transform: translateX(-100%);
+    }
+  }
+  
+}
+
+
 @media(min-width:40rem) {
   .grid-continer {
     grid-template-columns: 33% 33% 33%;
