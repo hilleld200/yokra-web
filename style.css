@@ -414,15 +414,8 @@ svg {
 
 @media (max-width: 40rem) {
   #news-list {
-    animation: ticker 20s infinite linear;
+    animation: ticker 16s infinite linear;
   }
-  
-  @keyframes ticker {
-    0% {
-      transform: translateX(-100%);
-    }
-  }
-  
 }
 
 
