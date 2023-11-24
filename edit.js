@@ -145,10 +145,11 @@ function uploadImage() {
     const uploadTask = uploadBytesResumable(storageRef, file);
     // Monitor the upload progress
     uploadTask.on("state_changed",
-        (error) => {
-            logger.error(error);
-            alert("Error uploading image: " + error + "\n please report this error to the developer");
-        },
+        // (error) => {
+        //     console.log("Error uploading image" + error);
+        //     console.log(error);
+        //     alert("Error uploading image: " + error + "\n please report this error to the developer");
+        // },
         () => {
             // Upload completed successfully, now we can get the download URL
             if (isUploaded) {
