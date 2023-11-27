@@ -33,17 +33,19 @@
     </footer>
   </dialog>
   <!-- input div -->
-  <div>
+  <div class="input-container">
     <!-- search bar -->
-    <form id="form" role="search">
+    <form class="top-input" role="search">
       <input type="search" id="query" name="q" placeholder="Search..." aria-label="Search through site content">
-      <button type="button" id="search_button">
-        <i class="fa-solid fa-magnifying-glass " style="color: #ffffff;"></i> </button>
+      <i id="search_button" class="fa-solid fa-list i-class "></i>
+
+      <i class="fa-solid fa-magnifying-glass i-class i-expend"></i>
     </form>
     <!-- login -->
-    <div class="login">
+    <div class="login top-input">
       <input class="password" type="password" placeholder="Enter your password">
       <button id="login-button">login</button>
+      <i class="fa-solid fa-caret-right i-class i-expend" style="font-size: 2rem; margin-left: 10px;"></i>
     </div>
   </div>
   <!-- back button -->

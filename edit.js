@@ -109,7 +109,7 @@ async function updateNews(){
 }
 
 // update data
-function updateData() {
+async function updateData() {
     if (nameInput.value == "") {
         alert("enter product name");
         return;
@@ -117,7 +117,7 @@ function updateData() {
     if (isImgSelected) {
         isUploaded = false;
         new_data.uri = file.name;
-        uploadImage();
+        await uploadImage();
     }
     if (new_data.name != start_data.name && start_data.name != null) {
         deleteData();
@@ -145,11 +145,6 @@ function uploadImage() {
     const uploadTask = uploadBytesResumable(storageRef, file);
     // Monitor the upload progress
     uploadTask.on("state_changed",
-        // (error) => {
-        //     console.log("Error uploading image" + error);
-        //     console.log(error);
-        //     alert("Error uploading image: " + error + "\n please report this error to the developer");
-        // },
         () => {
             // Upload completed successfully, now we can get the download URL
             if (isUploaded) {

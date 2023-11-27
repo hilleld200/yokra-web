@@ -27,8 +27,20 @@ const master_data_div = document.getElementById("grid-continer");
 let filter_by = "name";
 const input_search = document.querySelector("#query");
 const myDate = new Date();
-
 const newsList = document.getElementById("news-list");
+
+// obsarver
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("card-show");
+        } else {
+            entry.target.classList.remove("card-show");
+        }
+    })
+}, {
+    threshold: 0.2
+})
 
 
 function addNewsItem(news) {
@@ -107,6 +119,13 @@ document.getElementById("login-button").addEventListener("click", function () {
             })
         })
 })
+const expendList = document.querySelectorAll(".i-expend");
+expendList.forEach(expend => {
+    expend.addEventListener("click", function () {
+        expend.parentElement.classList.toggle("expend");
+    })
+})
+
 dialog.addEventListener("click", e => {
     const dialogDimensions = dialog.getBoundingClientRect()
     if (
@@ -299,6 +318,7 @@ function show_data(data) {
     mkt_element.innerHTML = data.mkt;
     //div element
     div_element.className = "card";
+    observer.observe(div_element);
     div_element.id = "product " + data.id;
     //append the elements
     div_element.appendChild(sale_element);
@@ -351,7 +371,7 @@ function show_folder_data(data) {
         event.preventDefault();
     })
     //div element
-    div_element.className = "card";
+    div_element.className = "folder-card";
     div_element.style.maxWidth = "unset";
     //append the elements
     div_element.appendChild(name_element);
