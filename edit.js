@@ -114,6 +114,7 @@ function updateData() {
         alert("enter product name");
         return;
     }
+    saveButton.style.display = "none";
     if (isImgSelected) {
         isUploaded = false;
         new_data.uri = file.name;
@@ -135,22 +136,28 @@ function updateData() {
 }
 
 // upload image
-function uploadImage() {
+async function uploadImage() {
     const storageRef = ref(storage, new_data.uri);
     
     // Upload the file to Firebase Storage
-     const uploadTask =  uploadBytesResumable(storageRef, file);
-    // Monitor the upload progress
-    uploadTask.on("state_changed",
-        () => {
-            // Upload completed successfully, now we can get the download URL
-            if (isUploaded) {
-                window.location.href = "index.html";
-            } else {
-                isUploaded = true;
-            }
+     let uploadTask;
+     await uploadBytesResumable(storageRef, file).then((snapshot) => {
+        if (isUploaded) {
+            console.log("uploaded");
+            window.location.href = "index.html";
+        } else {
+            isUploaded = true;
         }
-    );
+     });
+    // Monitor the upload progress
+    // uploadTask.on("state_changed",
+    //     () => {
+    //         console.log("uploading");
+    //         // Upload completed successfully, now we can get the download URL
+            
+    //     }
+    // );
+
     if (!start_data.uri == "icon.jpg") {
         deleteObject(ref(storage, start_data.uri));
     }
