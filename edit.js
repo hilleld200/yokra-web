@@ -25,7 +25,7 @@ let newsList = [];
 let start_data;
 let new_data;
 let isImgSelected = false;
-let isUploaded = true;
+let isUploaded = false;
 let isNewsUpdeted = false;
 let file;
 
@@ -93,8 +93,8 @@ deleteButton.addEventListener("click", function () {
 })
 
 // update news
-async function updateNews(){
-    await getDocs(collection(db, "news")).then((querySnapshot) => {
+function updateNews(){
+    getDocs(collection(db, "news")).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             if(document.getElementById(doc.id)){
                 updateDoc(doc.ref, {
@@ -109,7 +109,7 @@ async function updateNews(){
 }
 
 // update data
-async function updateData() {
+function updateData() {
     if (nameInput.value == "") {
         alert("enter product name");
         return;
@@ -117,7 +117,7 @@ async function updateData() {
     if (isImgSelected) {
         isUploaded = false;
         new_data.uri = file.name;
-        await uploadImage();
+        uploadImage();
     }
     if (new_data.name != start_data.name && start_data.name != null) {
         deleteData();
@@ -137,12 +137,9 @@ async function updateData() {
 // upload image
 function uploadImage() {
     const storageRef = ref(storage, new_data.uri);
-
-    // Create a unique name for the image file
-    const imageName = new_data.uri;
-
+    
     // Upload the file to Firebase Storage
-    const uploadTask = uploadBytesResumable(storageRef, file);
+     const uploadTask =  uploadBytesResumable(storageRef, file);
     // Monitor the upload progress
     uploadTask.on("state_changed",
         () => {
