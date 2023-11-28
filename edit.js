@@ -119,6 +119,8 @@ function updateData() {
         isUploaded = false;
         new_data.uri = file.name;
         uploadImage();
+    }else{
+        isUploaded = true;
     }
     if (new_data.name != start_data.name && start_data.name != null) {
         deleteData();
@@ -136,12 +138,12 @@ function updateData() {
 }
 
 // upload image
-async function uploadImage() {
+function uploadImage() {
     const storageRef = ref(storage, new_data.uri);
     
     // Upload the file to Firebase Storage
      let uploadTask;
-     await uploadBytesResumable(storageRef, file).then((snapshot) => {
+     uploadBytesResumable(storageRef, file).then((snapshot) => {
         if (isUploaded) {
             console.log("uploaded");
             window.location.href = "index.html";

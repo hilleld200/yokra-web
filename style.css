@@ -11,11 +11,6 @@
   width: 44px;
 }
 
-.input-container {
-  position: fixed;
-  z-index: 1;
-} 
-
 a,
 p,
 h1 {
@@ -173,9 +168,14 @@ body {
   z-index: -1;
 }
 
+.input-container {
+  position: fixed;
+  z-index: 1;
+  left: -270px;
+} 
+
 .top-input {
   transition: all 0.5s cubic-bezier(0.4, 0, 1, 1);
-  translate: -270px;
   background: linear-gradient(to right, #000000b7, #ffffff9e);
   display: flex;
   flex-direction: row;
@@ -188,7 +188,7 @@ body {
 }
 
 .expend{
-  translate: 0px;
+  translate: 270px;
 }
 
 input {
