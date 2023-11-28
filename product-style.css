@@ -7,8 +7,12 @@ body {
     width: 90vw;
 }
 
+.fa-trash{
+    color: red;
+}
 
 input {
+    caret-color: black;
     all: unset;
     flex-grow: 1;
     font: 16px system-ui;

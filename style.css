@@ -1,3 +1,14 @@
+:root {
+  --bar-width: 60px;
+  --bar-height: 8px;
+  --hamburger-gap: 6px;
+  --foreground: #333;
+  --background: white;
+  --hamburger-margin: 8px;
+  --animation-timing: 750ms ease-in-out;
+  --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
+}
+
 *,
 *::after,
 *::before {
@@ -9,6 +20,15 @@
   color: white;
   cursor: pointer;
   width: 44px;
+}
+
+.fa-whatsapp{
+  color: rgb(18, 218, 18);
+  cursor: pointer;
+  font-size: 4rem;
+  position: absolute;
+  top: var(--hamburger-margin);
+  right: 100px;
 }
 
 a,
@@ -32,6 +52,7 @@ h1 {
 }
 
 .products {
+  position: relative;
   top: 100px;
   display: flex;
   flex-wrap: wrap;
@@ -236,17 +257,6 @@ input {
 
 }
 
-:root {
-  --bar-width: 60px;
-  --bar-height: 8px;
-  --hamburger-gap: 6px;
-  --foreground: #333;
-  --background: white;
-  --hamburger-margin: 8px;
-  --animation-timing: 750ms ease-in-out;
-  --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
-}
-
 .hamburger-menu {
   --x-width: calc(var(--hamburger-height) * 1.41421356237);
 
@@ -419,7 +429,7 @@ input {
 
 @media (max-width: 40rem) {
   #news-list {
-    animation: ticker 16s infinite linear;
+    animation: ticker 20s infinite linear;
   }
 }
 

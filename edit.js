@@ -34,6 +34,7 @@ const newsButton = document.getElementsByClassName("fa-newspaper")[0];
 const addNews = document.getElementsByClassName("add-news")[0];
 const imagePreview = document.getElementById("image-preview");
 const deleteButton = document.getElementById("delete-button");
+const deleteImage = document.getElementById("delete-image");
 const is_in_stock = document.getElementById("is_in_stock");
 const priceInput = document.getElementById("price-input");
 const notesInput = document.getElementById("notes-input");
@@ -81,7 +82,7 @@ saveButton.addEventListener("click", function () {
     }
     new_data.name = new_data.name.trim();
     new_data.name = new_data.name.replaceAll("/", "^");
-    if(isNewsUpdeted){
+    if (isNewsUpdeted) {
         updateNews();
     }
     updateData();
@@ -92,18 +93,27 @@ deleteButton.addEventListener("click", function () {
     deleteData();
 })
 
+// delete image
+deleteImage.addEventListener("click", function (event) 
+{
+    event.preventDefault();
+    start_data.uri = "icon.jpg";
+    imagePreview.src = "./imgs/icon.jpg";
+    isImgSelected = false;
+})
+
 // update news
-function updateNews(){
+function updateNews() {
     getDocs(collection(db, "news")).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            if(document.getElementById(doc.id)){
+            if (document.getElementById(doc.id)) {
                 updateDoc(doc.ref, {
                     text: document.getElementById(doc.id).querySelector("input").value
                 })
-            }else{
+            } else {
                 deleteDoc(doc.ref)
             }
-            
+
         })
     })
 }
@@ -119,7 +129,7 @@ function updateData() {
         isUploaded = false;
         new_data.uri = file.name;
         uploadImage();
-    }else{
+    } else {
         isUploaded = true;
     }
     if (new_data.name != start_data.name && start_data.name != null) {
@@ -139,30 +149,24 @@ function updateData() {
 
 // upload image
 function uploadImage() {
+
     const storageRef = ref(storage, new_data.uri);
+
+    if (start_data.uri != "icon.jpg") {
+        deleteObject(ref(storage, start_data.uri));
+    }
     
     // Upload the file to Firebase Storage
-     let uploadTask;
-     uploadBytesResumable(storageRef, file).then((snapshot) => {
+    uploadBytesResumable(storageRef, file).then((snapshot) => {
         if (isUploaded) {
             console.log("uploaded");
             window.location.href = "index.html";
         } else {
             isUploaded = true;
         }
-     });
-    // Monitor the upload progress
-    // uploadTask.on("state_changed",
-    //     () => {
-    //         console.log("uploading");
-    //         // Upload completed successfully, now we can get the download URL
-            
-    //     }
-    // );
+    });
 
-    if (!start_data.uri == "icon.jpg") {
-        deleteObject(ref(storage, start_data.uri));
-    }
+
 }
 
 // set the views
@@ -180,14 +184,12 @@ function setTheView() {
     dateInput.valueAsDate = start_data.is_on_sale;
     saleInput.value = start_data.specialSale;
     console.log(start_data);
-    if (start_data.uri != null) {
+    if (start_data.uri != null || start_data.uri != "icon.png") {
         getDownloadURL(ref(storage, start_data.uri)).then((url) => {
             imagePreview.src = url;
         })
     } else {
-        getDownloadURL(ref(storage, "icon.png")).then((url) => {
-            imagePreview.src = url;
-        })
+        imagePreview.src = "./imgs/icon.jpg";
     }
 }
 
@@ -288,7 +290,6 @@ function set_news(data) {
 
     // i elemnet
     iElement.classList.add("fa-solid", "fa-trash");
-    iElement.style.color = "red";
     iElement.style.fontSize = "16px"
     iElement.addEventListener("click", function () {
         deleteData(data.id)
