@@ -80,7 +80,7 @@ saveButton.addEventListener("click", function () {
         specialSale: saleInput.value
     }
     new_data.name = new_data.name.trim();
-    new_data.name = new_data.name.replace("/", "^");
+    new_data.name = new_data.name.replaceAll("/", "^");
     if(isNewsUpdeted){
         updateNews();
     }
@@ -169,7 +169,7 @@ function uploadImage() {
 function setTheView() {
     nameInput.value = start_data.name
     if (start_data.name && start_data.name.includes("^")) {
-        nameInput.value = start_data.name.replace("^", "/");
+        nameInput.value = start_data.name.replaceAll("^", "/");
     }
     priceInput.value = start_data.price;
     notesInput.value = start_data.specialNotes;

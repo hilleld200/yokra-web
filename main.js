@@ -280,7 +280,7 @@ function show_data(data) {
     }
 
     //name element
-    name_element.innerHTML = data.name.replace("^", "/");
+    name_element.innerHTML = data.name.replaceAll("^", "/");
     name_element.addEventListener("click", function (event) {
         if (localStorage.getItem('admin_access') == "true") {
             localStorage.setItem('selected_product', data.name);
