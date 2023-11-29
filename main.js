@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,11 +19,13 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 //initialize the variables
+const starList = [];
 let products_list = [];
 let full_products_list = [];
 const news_list = [];
 let filter_by = "name";
 const myDate = new Date();
+const starButton = document.querySelector(".star");
 const input_search = document.querySelector("#query");
 const newsList = document.getElementById("news-list");
 const master_div_element = document.createElement("div");
@@ -45,23 +47,23 @@ const observer = new IntersectionObserver((entries) => {
 
 
 function addNewsItem(news) {
-  const li = document.createElement("li");
-  li.classList.add("news-item");
-  li.textContent = news;
-  newsList.appendChild(li);
-  
-  // Adjust the width of the ticker container based on the total width of news items
-  const totalWidth = getTotalWidth();
-  newsList.style.width = totalWidth + "px";
+    const li = document.createElement("li");
+    li.classList.add("news-item");
+    li.textContent = news;
+    newsList.appendChild(li);
+
+    // Adjust the width of the ticker container based on the total width of news items
+    const totalWidth = getTotalWidth();
+    newsList.style.width = totalWidth + "px";
 }
 
 function getTotalWidth() {
-  let totalWidth = 0;
-  const newsItems = document.querySelectorAll(".news-item");
-  newsItems.forEach((item) => {
-    totalWidth += item.offsetWidth + parseInt(getComputedStyle(item).marginRight);
-  });
-  return totalWidth;
+    let totalWidth = 0;
+    const newsItems = document.querySelectorAll(".news-item");
+    newsItems.forEach((item) => {
+        totalWidth += item.offsetWidth + parseInt(getComputedStyle(item).marginRight);
+    });
+    return totalWidth;
 }
 
 getData();
@@ -120,6 +122,18 @@ document.getElementById("login-button").addEventListener("click", function () {
             })
         })
 })
+
+// star button
+starButton.addEventListener("click", function () {
+    products_list.forEach(product => {
+        document.getElementById("product "+ product.id).style.display = "none";
+    })
+    starList.forEach(star => {
+        document.getElementById("product "+ star).style.display = "block";
+    })
+
+})
+
 const expendList = document.querySelectorAll(".i-expend");
 expendList.forEach(expend => {
     expend.addEventListener("click", function () {
@@ -145,8 +159,8 @@ input_search.addEventListener('input', function () {
     if (typedLetter == "") {
         console.log("empty");
         input_search.parentElement.classList.remove("expend");
-    }else{
-        if(!input_search.parentElement.classList.contains("expend")){
+    } else {
+        if (!input_search.parentElement.classList.contains("expend")) {
             input_search.parentElement.classList.add("expend");
         }
     }
@@ -222,11 +236,11 @@ document.getElementById("sale-href").addEventListener("click", function () {
 document.getElementById("types-href").addEventListener("click", function () {
     hamburgerButton.checked = false;
 
-     // Set the products_list variable to the full_products_list
-     products_list = full_products_list;
+    // Set the products_list variable to the full_products_list
+    products_list = full_products_list;
 
-     // make the back button invisible
-     document.querySelector(".back").style.display = "none";
+    // make the back button invisible
+    document.querySelector(".back").style.display = "none";
 
     master_div_element.style.display = "none";
     master_data_div.style.display = "grid";
@@ -248,11 +262,18 @@ async function getData() {
             is_in_stock: doc.data().is_in_stock,
             mkt: doc.data().mkt,
             is_on_sale: doc.data().is_on_sale,
-            specialSale: doc.data().specialSale
+            specialSale: doc.data().specialSale,
+            isNew: doc.data().isNew
         };
+        if(corerct_product.isNew != null && corerct_product.isNew != ""){
+            if (corerct_product.isNew.toDate() > myDate) {
+                starList.push(corerct_product.id);
+            }
+        }
+        
         // that code is for adding a new field to the database
         // updateDoc(doc.ref, {
-        //   mkt: ""
+        //   isNew: ""
         // })
 
         products_list.push(corerct_product);
@@ -278,6 +299,7 @@ function show_data(data) {
     //create the elements
     const div_element = document.createElement("div");
     const sale_element = document.createElement("h1");
+    const iElement = document.createElement("i");
     const name_element = document.createElement("a");
     const line_break = document.createElement("hr");
     const type_and_price_element = document.createElement("p");
@@ -292,6 +314,14 @@ function show_data(data) {
             sale_element.innerHTML = data.specialSale;
             sale_element.style.color = "red";
         }
+    }
+
+    // i element
+    iElement.classList.add("fa-solid", "fa-star");
+    iElement.style.fontSize = "16px"
+    iElement.style.color = "gold";
+    if (starList.includes(data.id)) {
+        div_element.appendChild(iElement);
     }
 
     //name element
@@ -314,17 +344,19 @@ function show_data(data) {
     //image element
     if (data.uri == "icon.jpg") {
         image_element.src = "./imgs/icon.jpg";
-    }else{ getDownloadURL(ref(storage, data.uri)).then((url) => {
-        image_element.src = url;
-    })}
-     //in stock element
-     if (!data.is_in_stock) {
+    } else {
+        getDownloadURL(ref(storage, data.uri)).then((url) => {
+            image_element.src = url;
+        })
+    }
+    //in stock element
+    if (!data.is_in_stock) {
         out_of_stock_element.src = "./imgs/soldOut.png"
         out_of_stock_element.style.position = "absolute";
         out_of_stock_element.style.opacity = "0.27";
         out_of_stock_element.style.loading = "lazy";
     }
-   
+
     image_element.loading = "lazy";
     //img div element
     img_div_element.style.display = "flex";

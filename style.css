@@ -22,13 +22,23 @@
   width: 44px;
 }
 
-.fa-whatsapp{
+.fa-whatsapp, .star{
   color: rgb(18, 218, 18);
   cursor: pointer;
   font-size: 4rem;
   position: absolute;
   top: var(--hamburger-margin);
   right: 100px;
+}
+
+.fa-whatsapp:hover, .star:hover{
+  transform: scale(1.2);
+  transition: all 0.5s ease;
+}
+
+.star{
+  color: gold;
+  right: 200px;
 }
 
 a,

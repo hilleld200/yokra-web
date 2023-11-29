@@ -21,6 +21,7 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 //Initialize the variables
+const myDate = new Date();
 let newsList = [];
 let start_data;
 let new_data;
@@ -49,6 +50,7 @@ const data_div = document.getElementById("data-div");
 const sale_div = document.getElementById("sale-div");
 const newsDiv = document.getElementById("news-div");
 const mkt = document.getElementById("mkt-input");
+const star = document.getElementById("star");
 
 get_news_data();
 
@@ -78,7 +80,8 @@ saveButton.addEventListener("click", function () {
         is_in_stock: is_in_stock.checked,
         mkt: mkt.value,
         is_on_sale: the_date,
-        specialSale: saleInput.value
+        specialSale: saleInput.value,
+        isNew: start_data.isNew
     }
     new_data.name = new_data.name.trim();
     new_data.name = new_data.name.replaceAll("/", "^");
@@ -87,36 +90,6 @@ saveButton.addEventListener("click", function () {
     }
     updateData();
 })
-
-// delete button
-deleteButton.addEventListener("click", function () {
-    deleteData();
-})
-
-// delete image
-deleteImage.addEventListener("click", function (event) 
-{
-    event.preventDefault();
-    start_data.uri = "icon.jpg";
-    imagePreview.src = "./imgs/icon.jpg";
-    isImgSelected = false;
-})
-
-// update news
-function updateNews() {
-    getDocs(collection(db, "news")).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            if (document.getElementById(doc.id)) {
-                updateDoc(doc.ref, {
-                    text: document.getElementById(doc.id).querySelector("input").value
-                })
-            } else {
-                deleteDoc(doc.ref)
-            }
-
-        })
-    })
-}
 
 // update data
 function updateData() {
@@ -145,6 +118,45 @@ function updateData() {
         console.error("Error adding document: ", error);
     });
 
+}
+
+// delete button
+deleteButton.addEventListener("click", function () {
+    deleteData();
+})
+
+// delete image
+deleteImage.addEventListener("click", function (event) 
+{
+    event.preventDefault();
+    start_data.uri = "icon.jpg";
+    imagePreview.src = "./imgs/icon.jpg";
+    isImgSelected = false;
+})
+
+// add IsNew
+star.addEventListener("click", function (event) 
+{
+    event.preventDefault();
+    star.style.color = "green";
+    myDate.setDate(myDate.getDate() + 7);
+    start_data.isNew = myDate;
+})
+
+// update news
+function updateNews() {
+    getDocs(collection(db, "news")).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            if (document.getElementById(doc.id)) {
+                updateDoc(doc.ref, {
+                    text: document.getElementById(doc.id).querySelector("input").value
+                })
+            } else {
+                deleteDoc(doc.ref)
+            }
+
+        })
+    })
 }
 
 // upload image
@@ -317,13 +329,18 @@ if (localStorage.getItem('selected_product') != "null") {
         is_in_stock: docSnap.data().is_in_stock,
         mkt: docSnap.data().mkt,
         is_on_sale: docSnap.data().is_on_sale,
-        specialSale: docSnap.data().specialSale
+        specialSale: docSnap.data().specialSale,
+        isNew : docSnap.data().isNew
     }
     if (!start_data.is_on_sale) {
         start_data.is_on_sale = null
     } else {
         start_data.is_on_sale = start_data.is_on_sale.toDate()
         console.log(start_data.is_on_sale)
+    }
+    if (start_data.isNew)
+    {
+        start_data.isNew = start_data.isNew
     }
     setTheView();
 } else {
