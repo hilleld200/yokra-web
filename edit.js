@@ -354,7 +354,8 @@ if (localStorage.getItem('selected_product') != "null") {
         is_in_stock: true,
         mkt: null,
         is_on_sale: null,
-        specialSale: null
+        specialSale: null,
+        isNew : ""
     }
     setTheView();
 }
