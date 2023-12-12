@@ -308,6 +308,7 @@ function show_data(data) {
     const image_element = document.createElement("img");
     const out_of_stock_element = document.createElement("img");
     const mkt_element = document.createElement("p");
+    const dropDownElement = document.createElement("select");
     // sale element
     if (data.is_on_sale) {
         if (data.is_on_sale.toDate() > myDate) {
@@ -336,7 +337,21 @@ function show_data(data) {
         }
     })
     //type & price element
-    type_and_price_element.innerHTML = data.type + " | " + data.price + "₪";
+    if(data.price.includes("&")){
+        const temp = data.price.split("&");
+        temp.forEach((element)=>{
+            const op = document.createElement("option");
+            op.value = element;
+            op.innerHTML = element;
+            dropDownElement.appendChild(op);
+        })
+        type_and_price_element.innerHTML = data.type + " | ";
+        type_and_price_element.appendChild(dropDownElement);
+
+    }else{
+        type_and_price_element.innerHTML = data.type + " | " + data.price + "₪";
+    }
+    
     type_and_price_element.style.direction = "rtl";
     //secondSpecialNotes element
     secondSpecialNotes_element.innerHTML = data.secondSpecialNotes;

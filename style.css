@@ -8,7 +8,20 @@
   --animation-timing: 750ms ease-in-out;
   --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
 }
-
+select {
+  /* Remove arrow down indicator for modern browsers */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 4px;
+  background: unset;
+  border: 0.5px solid;
+  box-shadow: inset #000000b8 1px 1px 5px 0px;
+  /* Remove arrow down indicator for Internet Explorer */
+  &::-ms-expand {
+    display: none;
+  }
+}
 *,
 *::after,
 *::before {
@@ -51,6 +64,8 @@ h1 {
 }
 
 .grid-continer {
+  top: 50px;
+    position: relative;
   margin: 20px auto;
   width: 85%;
   height: 100%;
