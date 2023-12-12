@@ -318,11 +318,13 @@ function show_data(data) {
     }
 
     // i element
-    iElement.classList.add("fa-solid", "fa-star");
+    // iElement.classList.add("fa-solid", "fa-star");
+    iElement.innerHTML = "חדש באתר"
+    iElement.classList.add("new");
     iElement.style.fontSize = "16px"
     iElement.style.color = "gold";
     if (starList.includes(data.id)) {
-        div_element.appendChild(iElement);
+        img_div_element.appendChild(iElement);
     }
 
     //name element

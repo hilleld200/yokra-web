@@ -1,3 +1,10 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 :root {
   --bar-width: 60px;
   --bar-height: 8px;
@@ -8,6 +15,15 @@
   --animation-timing: 750ms ease-in-out;
   --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
 }
+a,
+p,
+h1 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  direction: rtl;
+
+}
+
 select {
   /* Remove arrow down indicator for modern browsers */
   appearance: none;
@@ -21,12 +37,6 @@ select {
   &::-ms-expand {
     display: none;
   }
-}
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-  margin: 0;
 }
 
 .i-class{
@@ -54,13 +64,17 @@ select {
   right: 200px;
 }
 
-a,
-p,
-h1 {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  direction: rtl;
-
+.new{
+  z-index: 1;
+  font-size: 16px;
+    color: gold;
+    box-shadow: 3px 3px 4px 0px black;
+    background: #00000075;
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    border-radius: 100%;
+    padding: 10px;
 }
 
 .grid-continer {
@@ -456,6 +470,10 @@ input {
 @media (max-width: 40rem) {
   #news-list {
     animation: ticker 20s infinite linear;
+  }
+  .star {
+    font-size: 45px;
+    padding-top: 20px;
   }
 }
 

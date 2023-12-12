@@ -71,16 +71,16 @@ saveButton.addEventListener("click", function () {
         the_date = new Date(dateInput.value);
     }
     new_data = {
-        name: nameInput.value,
-        price: priceInput.value,
-        specialNotes: notesInput.value,
-        secondSpecialNotes: secondNotesInput.value,
-        type: typeInput.value,
+        name: nameInput.value.trim(),
+        price: priceInput.value.trim(),
+        specialNotes: notesInput.value.trim(),
+        secondSpecialNotes: secondNotesInput.value.trim(),
+        type: typeInput.value.trim(),
         uri: start_data.uri,
         is_in_stock: is_in_stock.checked,
-        mkt: mkt.value,
+        mkt: mkt.value.trim(),
         is_on_sale: the_date,
-        specialSale: saleInput.value,
+        specialSale: saleInput.value.trim(),
         isNew: start_data.isNew
     }
     new_data.name = new_data.name.trim();
