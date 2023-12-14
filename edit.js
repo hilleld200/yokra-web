@@ -146,7 +146,7 @@ star.addEventListener("click", function (event)
     start_data.isNew.text = "חדש באתר";
 })
 
-// long IsNew click
+/* start of long IsNew click*/
 let timeoutId;
 
 function startLongClick(event) {
@@ -161,6 +161,16 @@ function endLongClick(event) {
 
 star.addEventListener('mousedown', startLongClick);
 star.addEventListener('mouseup', endLongClick);
+/* end of long IsNew click */
+
+// dialog logic
+document.getElementById("dialog-save").addEventListener("click", function () {
+    start_data.isNew = {
+        date: new Date(document.getElementById("dialog-date-input").value),
+        text: document.getElementById("dialog-text-input").value
+    }
+    dialog.close();
+})
 
 // update news
 function updateNews() {

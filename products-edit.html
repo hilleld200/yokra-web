@@ -18,11 +18,12 @@
     <i class="fa-solid fa-house fa-fade home" onclick="window.location.href='index.html'"></i>
     <!-- dialog -->
     <dialog>
-        <h1><button onclick="document.querySelector('dialog').close()">X</button></h1>
+        <div>
         <span><p>תאריך</p> <input id="dialog-date-input" type="date"></span>
         <span><p>טקסט</p> <input id="dialog-text-input" type="text"></span>
         <button id="dialog-save">שמור</button>
-        <button id="dialog-cancel">ביטול</button>
+        <button onclick="document.querySelector('dialog').close()">ביטול</button>
+        </div>
     </dialog>
     <div id="sale-div" class="data-divs" style="display: none;">
         <label id="date-label" for="date-input" class="label">

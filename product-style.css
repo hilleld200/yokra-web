@@ -7,8 +7,8 @@ body {
     width: 90vw;
 }
 
-.fa-trash{
-    color: red;
+i {
+    font-size: 90px;
 }
 
 input {
@@ -19,6 +19,31 @@ input {
     color: #ffffffc6;
     padding: 6px 10px;
 }
+
+dialog {
+    background: linear-gradient(to right, #d0946db1, #8c8eac);
+    border-radius: 5px;
+}
+
+dialog div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+dialog input {
+    border: 2px solid black;
+    caret-color: black;
+    flex-grow: 1;
+    font: 16px system-ui;
+    color: black;
+    padding: 6px 10px;
+}
+
+.fa-trash{
+    color: red;
+}
+
 
 .data-divs {
     size: 1.5rem;
@@ -50,9 +75,7 @@ input {
   ::-webkit-scrollbar-button {
     display: none;
   }
-i {
-    font-size: 90px;
-}
+
 
 .home {
     top: 10px;

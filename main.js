@@ -265,7 +265,7 @@ async function getData() {
             specialSale: doc.data().specialSale,
             isNew: doc.data().isNew
         };
-        if(new Date(corerct_product.isNew.date) > new Date()){
+        if(corerct_product.isNew.date.toDate() > new Date()){
                 starList.push(corerct_product.id);
         }
 
@@ -322,7 +322,7 @@ function show_data(data) {
 
     // i element
     // iElement.classList.add("fa-solid", "fa-star");
-    iElement.innerHTML = "חדש באתר"
+    iElement.innerHTML = data.isNew.text;
     iElement.classList.add("new");
     iElement.style.fontSize = "16px"
     iElement.style.color = "gold";
