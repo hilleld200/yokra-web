@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, deleteDoc, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -126,10 +126,10 @@ document.getElementById("login-button").addEventListener("click", function () {
 // star button
 starButton.addEventListener("click", function () {
     products_list.forEach(product => {
-        document.getElementById("product "+ product.id).style.display = "none";
+        document.getElementById("product " + product.id).style.display = "none";
     })
     starList.forEach(star => {
-        document.getElementById("product "+ star).style.display = "block";
+        document.getElementById("product " + star).style.display = "block";
     })
 
 })
@@ -265,16 +265,19 @@ async function getData() {
             specialSale: doc.data().specialSale,
             isNew: doc.data().isNew
         };
-        if(corerct_product.isNew != null && corerct_product.isNew != ""){
-            if (corerct_product.isNew.toDate() > myDate) {
+        if(new Date(corerct_product.isNew.date) > new Date()){
                 starList.push(corerct_product.id);
-            }
         }
-        
+
         // that code is for adding a new field to the database
         // updateDoc(doc.ref, {
-        //   isNew: ""
+        //     isNew: {
+        //         date: new Date(),
+        //         text: "new"
+        //     }
         // })
+
+
 
         products_list.push(corerct_product);
         show_data(corerct_product);
@@ -339,9 +342,9 @@ function show_data(data) {
         }
     })
     //type & price element
-    if(data.price.includes("&")){
+    if (data.price.includes("&")) {
         const temp = data.price.split("&");
-        temp.forEach((element)=>{
+        temp.forEach((element) => {
             const op = document.createElement("option");
             op.value = element;
             op.innerHTML = element;
@@ -350,10 +353,10 @@ function show_data(data) {
         type_and_price_element.innerHTML = data.type + " | ";
         type_and_price_element.appendChild(dropDownElement);
 
-    }else{
+    } else {
         type_and_price_element.innerHTML = data.type + " | " + data.price + "₪";
     }
-    
+
     type_and_price_element.style.direction = "rtl";
     //secondSpecialNotes element
     secondSpecialNotes_element.innerHTML = data.secondSpecialNotes;

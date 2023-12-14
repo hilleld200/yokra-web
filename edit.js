@@ -50,11 +50,13 @@ const data_div = document.getElementById("data-div");
 const sale_div = document.getElementById("sale-div");
 const newsDiv = document.getElementById("news-div");
 const mkt = document.getElementById("mkt-input");
+const dialog = document.querySelector("dialog");
 const star = document.getElementById("star");
 
 get_news_data();
 
 //functions******************************************************************************
+/**/
 // image input
 imageInput.addEventListener("change", function () {
     isImgSelected = true;
@@ -134,14 +136,31 @@ deleteImage.addEventListener("click", function (event)
     isImgSelected = false;
 })
 
-// add IsNew
+//short IsNew click
 star.addEventListener("click", function (event) 
 {
     event.preventDefault();
     star.style.color = "green";
     myDate.setDate(myDate.getDate() + 7);
-    start_data.isNew = myDate;
+    start_data.isNew.date = myDate;
+    start_data.isNew.text = "חדש באתר";
 })
+
+// long IsNew click
+let timeoutId;
+
+function startLongClick(event) {
+  timeoutId = setTimeout(() => {
+    dialog.showModal();
+  }, 1000); // Adjust the duration as needed
+}
+
+function endLongClick(event) {
+  clearTimeout(timeoutId);
+}
+
+star.addEventListener('mousedown', startLongClick);
+star.addEventListener('mouseup', endLongClick);
 
 // update news
 function updateNews() {
@@ -338,10 +357,6 @@ if (localStorage.getItem('selected_product') != "null") {
         start_data.is_on_sale = start_data.is_on_sale.toDate()
         console.log(start_data.is_on_sale)
     }
-    if (start_data.isNew)
-    {
-        start_data.isNew = start_data.isNew
-    }
     setTheView();
 } else {
     start_data = {
@@ -355,7 +370,10 @@ if (localStorage.getItem('selected_product') != "null") {
         mkt: null,
         is_on_sale: null,
         specialSale: null,
-        isNew : ""
+        isNew : {
+            date: new Date(),
+            text: ""
+        }
     }
     setTheView();
 }
