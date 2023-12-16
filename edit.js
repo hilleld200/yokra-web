@@ -158,7 +158,8 @@ function startLongClick(event) {
 function endLongClick(event) {
   clearTimeout(timeoutId);
 }
-
+star.addEventListener('touchstart', startLongClick);
+star.addEventListener('touchend', endLongClick);
 star.addEventListener('mousedown', startLongClick);
 star.addEventListener('mouseup', endLongClick);
 /* end of long IsNew click */
