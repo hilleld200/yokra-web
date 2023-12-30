@@ -257,7 +257,6 @@ async function getData() {
             name: doc.data().name,
             price: doc.data().price,
             uri: doc.data().uri,
-            specialNotes: doc.data().specialNotes,
             secondSpecialNotes: doc.data().secondSpecialNotes,
             is_in_stock: doc.data().is_in_stock,
             mkt: doc.data().mkt,
@@ -265,7 +264,7 @@ async function getData() {
             specialSale: doc.data().specialSale,
             isNew: doc.data().isNew
         };
-        if(corerct_product.isNew.date.toDate() > new Date()){
+        if(new Date(corerct_product.isNew.date) > new Date()){
                 starList.push(corerct_product.id);
         }
 
@@ -314,7 +313,7 @@ function show_data(data) {
     const dropDownElement = document.createElement("select");
     // sale element
     if (data.is_on_sale) {
-        if (data.is_on_sale.toDate() > myDate) {
+        if (new Date(data.is_on_sale) > myDate) {
             sale_element.innerHTML = data.specialSale;
             sale_element.style.color = "red";
         }
@@ -324,8 +323,6 @@ function show_data(data) {
     // iElement.classList.add("fa-solid", "fa-star");
     iElement.innerHTML = data.isNew.text;
     iElement.classList.add("new");
-    iElement.style.fontSize = "16px"
-    iElement.style.color = "gold";
     if (starList.includes(data.id)) {
         img_div_element.appendChild(iElement);
     }
@@ -442,7 +439,6 @@ function show_folder_data(data) {
     })
     //div element
     div_element.className = "folder-card";
-    div_element.style.maxWidth = "unset";
     //append the elements
     div_element.appendChild(name_element);
     master_data_div.appendChild(div_element);
