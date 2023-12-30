@@ -365,7 +365,7 @@ if (localStorage.getItem('selected_product') != "null") {
     if (!start_data.is_on_sale) {
         start_data.is_on_sale = null
     } else {
-        start_data.is_on_sale = start_data.is_on_sale.toDate()
+        start_data.is_on_sale = new Date(start_data.is_on_sale)
         console.log(start_data.is_on_sale)
     }
     setTheView();
