@@ -264,7 +264,7 @@ async function getData() {
             specialSale: doc.data().specialSale,
             isNew: doc.data().isNew
         };
-        if(new Date(corerct_product.isNew.date) > new Date()){
+        if(corerct_product.isNew.date.toDate() > new Date()){
                 starList.push(corerct_product.id);
         }
 
@@ -313,7 +313,7 @@ function show_data(data) {
     const dropDownElement = document.createElement("select");
     // sale element
     if (data.is_on_sale) {
-        if (new Date(data.is_on_sale) > myDate) {
+        if (data.is_on_sale.toDate() > myDate) {
             sale_element.innerHTML = data.specialSale;
             sale_element.style.color = "red";
         }
